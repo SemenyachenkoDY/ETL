@@ -93,8 +93,11 @@ for file_path in tqdm(all_txt_files, desc="Объединяем файлы"):
 print("Готово.")
 print("Итоговый файл:", output_file)
 ```
-## Созданный конвейер в Spoon (общий вид)
+**Пример работы кода:**
+<img width="1568" height="938" alt="image" src="https://github.com/user-attachments/assets/2c9a7bd3-104b-410c-87cc-f8db39bab55d" />
 
+## Созданный конвейер в Spoon (общий вид)
+Vw2$0vV_!j	
 ## Настройки ключевых шагов (Input, Filter, Output)
 
 ## SQL-запросы, использованные для проверки загрузки данных, и скриншот результата SELECT из phpMyAdmin
