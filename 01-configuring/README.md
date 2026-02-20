@@ -103,3 +103,4 @@ ZVjSoVl9
 ## SQL-запросы, использованные для проверки загрузки данных, и скриншот результата SELECT из phpMyAdmin
 
 ## Файлы:
+[Исходный CSV](https://disk.yandex.ru/d/iKY-8wgjCtOIeg)
