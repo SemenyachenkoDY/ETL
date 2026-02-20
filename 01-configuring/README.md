@@ -97,10 +97,33 @@ print("Итоговый файл:", output_file)
 <img width="1568" height="938" alt="image" src="https://github.com/user-attachments/assets/2c9a7bd3-104b-410c-87cc-f8db39bab55d" />
 
 ## Созданный конвейер в Spoon (общий вид)
-ZVjSoVl9	
+<img width="1917" height="1027" alt="image" src="https://github.com/user-attachments/assets/93d83bca-3106-4093-a0bd-8fd50bc6451d" />
+
 ## Настройки ключевых шагов (Input, Filter, Output)
 
+### Настройка блока Input
+<img width="1913" height="1018" alt="image" src="https://github.com/user-attachments/assets/f975a84a-f598-4c91-a820-1596a8a4ccea" />
+
+### Настройка блока Filter
+<img width="1082" height="707" alt="image" src="https://github.com/user-attachments/assets/03cab278-3393-4ab8-8031-8017a175b51e" />
+
+###  Настройка блока Calculator
+<img width="1919" height="1018" alt="image" src="https://github.com/user-attachments/assets/77b1b287-16f7-4b3d-9467-00bacf655f89" />
+
+### Настройка блока Output
+<img width="937" height="711" alt="image" src="https://github.com/user-attachments/assets/d99f95d6-9a0e-4183-801b-6d7891862576" />
+
+
 ## SQL-запросы, использованные для проверки загрузки данных, и скриншот результата SELECT из phpMyAdmin
+
+### Для проверки наличия записей использовался такой скрипт: SELECT * FROM `stock_prices` LIMIT 100;
+
+<img width="1919" height="963" alt="image" src="https://github.com/user-attachments/assets/1b500101-22c9-47da-8c1e-df10e4d651da" />
+
+
+### Для проверки количества записей использовался такой запрос: SELECT COUNT(*) FROM stock_prices;
+<img width="1919" height="907" alt="image" src="https://github.com/user-attachments/assets/7e71a74a-eeef-4f90-aedc-f01b8ca5230f" />
+
 
 ## Файлы:
 [Исходный CSV](https://disk.yandex.ru/d/iKY-8wgjCtOIeg)
