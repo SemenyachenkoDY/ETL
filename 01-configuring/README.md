@@ -104,3 +104,4 @@ ZVjSoVl9
 
 ## Файлы:
 [Исходный CSV](https://disk.yandex.ru/d/iKY-8wgjCtOIeg)
+[](/Lab_01.ktr)
