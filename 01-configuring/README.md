@@ -97,7 +97,7 @@ print("Итоговый файл:", output_file)
 <img width="1568" height="938" alt="image" src="https://github.com/user-attachments/assets/2c9a7bd3-104b-410c-87cc-f8db39bab55d" />
 
 ## Созданный конвейер в Spoon (общий вид)
-Vw2$0vV_!j	
+ZVjSoVl9	
 ## Настройки ключевых шагов (Input, Filter, Output)
 
 ## SQL-запросы, использованные для проверки загрузки данных, и скриншот результата SELECT из phpMyAdmin
