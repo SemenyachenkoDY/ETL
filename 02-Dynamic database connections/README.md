@@ -88,11 +88,16 @@ ALTER TABLE products CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ## Шаг 2. Настройка Job (Главного задания)
 
 **Set Variables: Создайте переменную пути к файлу.**
+<img width="1833" height="1035" alt="image" src="https://github.com/user-attachments/assets/9187ee10-ffb6-4544-be43-16e19188f2bf" />
 
 **Check File Exists: Проверка наличия файла ${CSV_FILE_PATH}.**
+<img width="1833" height="1035" alt="image" src="https://github.com/user-attachments/assets/ae602505-c8bd-4723-9f9d-5b567ad18509" />
+
 **HTTP (Download): Загрузка файла, если его нет.**
 
 **Transformation. Последовательный вызов трех трансформаций для загрузки данных.**
+<img width="1833" height="1035" alt="image" src="https://github.com/user-attachments/assets/7361647e-1c17-4929-aa1c-3714b850b6c4" />
+
 ## Шаг 3. Реализация Трансформаций (Transformations)
 ### Трансформация 1. Load Orders
 
@@ -152,6 +157,9 @@ JOIN products p ON o.product_id = p.product_id
 GROUP BY p.person
 ORDER BY total_sales DESC;
 ```
+vivod
+<img width="1833" height="1035" alt="image" src="https://github.com/user-attachments/assets/c66ffb19-d2b2-4495-aa65-9110e070e521" />
+
 Настройка инпута 2
 <img width="1833" height="1035" alt="image" src="https://github.com/user-attachments/assets/f5bb5f44-0a7e-491a-aadb-071c8133042e" />
 
@@ -169,6 +177,8 @@ JOIN customers c ON o.customer_id = c.customer_id
 GROUP BY c.region
 ORDER BY total_sales DESC;
 ```
+vivod
+<img width="1833" height="1035" alt="image" src="https://github.com/user-attachments/assets/c1600a94-6c1d-4580-90a8-05755b908ca9" />
 
 [Файл Job]()
 
