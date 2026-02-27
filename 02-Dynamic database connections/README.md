@@ -2,7 +2,7 @@
 # Лабораторная работа №2. Динамические соединения с базами данных
 
 **Цель работы.** Получить практические навыки создания сложного ETL-процесса, включающего динамическую загрузку файлов по HTTP, нормализацию базы данных, обработку дубликатов и настройку обработки ошибок с использованием Pentaho Data Integration (PDI).
-https://envlab.ru/pluginfile.php/205/mod_assign/introattachment/0/Лр%202%20Динамические%20соединения%20с%20базами%20данных.pdf?forcedownload=1
+
 ## Вариант 14
 
 |№ |Основной фильтр для загрузки в БД	 |Доп. задание 1 (Аналитика)	 |Доп. задание 2 (Аналитика)| 
@@ -140,9 +140,9 @@ ALTER TABLE products CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 **Table Output. Загрузка в таблицу products.**
 <img width="1844" height="1053" alt="image" src="https://github.com/user-attachments/assets/214b96c3-97f7-441c-a9a3-6b7be15bd8d0" />
 
-Шаг 4 Выполнение доп заданий
+## Шаг 4 Выполнение доп заданий
 
-Настройка инпута 1
+### Настройка инпута 1
 <img width="1833" height="1035" alt="image" src="https://github.com/user-attachments/assets/401be8ec-297f-4e30-b9f9-1e3031bcccf3" />
 ```
 SELECT 
@@ -157,10 +157,10 @@ JOIN products p ON o.product_id = p.product_id
 GROUP BY p.person
 ORDER BY total_sales DESC;
 ```
-vivod
+**Результат работы:**
 <img width="1833" height="1035" alt="image" src="https://github.com/user-attachments/assets/c66ffb19-d2b2-4495-aa65-9110e070e521" />
 
-Настройка инпута 2
+### Настройка инпута 2 
 <img width="1833" height="1035" alt="image" src="https://github.com/user-attachments/assets/f5bb5f44-0a7e-491a-aadb-071c8133042e" />
 
 ```
@@ -177,16 +177,17 @@ JOIN customers c ON o.customer_id = c.customer_id
 GROUP BY c.region
 ORDER BY total_sales DESC;
 ```
-vivod
+**Результат работы:**
 <img width="1833" height="1035" alt="image" src="https://github.com/user-attachments/assets/c1600a94-6c1d-4580-90a8-05755b908ca9" />
 
-[Файл Job]()
+[Файл Job](/KTR/Job%20CSV_to_MYsql.kjb)
 
-[Файл Transformations orders]()
+[Файл Transformations orders](KTR/lab_02_1_csv_orders.ktr)
 
-[Файл Transformations products]()
+[Файл Transformations products](/KTR/lab_02_2_csv_to_Customers.ktr)
 
-[Файл Transformations customers]()
-[]()
-[]()
-[]()
+[Файл Transformations customers](KTR/lab_02_3_csv_to_products.ktr)
+
+[Файл трансформации для Статистика по менеджерам](KTR/zadanie_1.ktr)
+
+[[Файл трансформации для Анализ регионов](KTR/zadanie_2.ktr)
