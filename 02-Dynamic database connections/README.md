@@ -87,6 +87,12 @@ ALTER TABLE products CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 
 ## Шаг 2. Настройка Job (Главного задания)
 
+**Set Variables: Создайте переменную пути к файлу.**
+
+**Check File Exists: Проверка наличия файла ${CSV_FILE_PATH}.**
+**HTTP (Download): Загрузка файла, если его нет.**
+
+**Transformation. Последовательный вызов трех трансформаций для загрузки данных.**
 ## Шаг 3. Реализация Трансформаций (Transformations)
 ### Трансформация 1. Load Orders
 
