@@ -180,6 +180,27 @@ ORDER BY total_sales DESC;
 **Результат работы:**
 <img width="1833" height="1035" alt="image" src="https://github.com/user-attachments/assets/c1600a94-6c1d-4580-90a8-05755b908ca9" />
 
+## Проверка данных
+
+### Для проверки наличия записей использовался такой скрипт: SELECT * FROM orders,customers,products LIMIT 100;
+
+<img width="1919" height="963" alt="image" src="https://github.com/user-attachments/assets/4febefe8-c29d-41eb-83dd-bf54af6c9b77" />
+
+<img width="1919" height="957" alt="image" src="https://github.com/user-attachments/assets/443a8647-b1f5-49c1-aaed-dc1779cd9db0" />
+
+<img width="1915" height="956" alt="image" src="https://github.com/user-attachments/assets/8a39a366-2603-424a-9a80-2ea26ef4e817" />
+
+
+
+### Для проверки количества записей использовался такой запрос: SELECT COUNT(*) FROM orders,customers,products;
+<img width="1919" height="803" alt="image" src="https://github.com/user-attachments/assets/5195463b-26ff-493e-871c-c0d7f1f717df" />
+
+<img width="1919" height="1009" alt="image" src="https://github.com/user-attachments/assets/a644561d-79c2-4066-91d5-cf51e077170b" />
+
+<img width="1919" height="899" alt="image" src="https://github.com/user-attachments/assets/e0fcf9e9-232f-4a13-9ea3-b45b2aa400ec" />
+
+# Файлы
+
 [Файл Job](/KTR/Job%20CSV_to_MYsql.kjb)
 
 [Файл Transformations orders](KTR/lab_02_1_csv_orders.ktr)
