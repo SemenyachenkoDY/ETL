@@ -108,20 +108,69 @@ ALTER TABLE products CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ### Трансформация 2. Load Customers
 
 **Select Values. Оставьте только поля, относящиеся к клиенту (customer_id, name, city и т.д.).**
+<img width="1844" height="1053" alt="image" src="https://github.com/user-attachments/assets/8ba418c6-c85a-44cf-a047-8fea208c5b81" />
 
 **Memory Group By. Группировка по customer_id (устранение дублей клиентов).**
+<img width="1844" height="1053" alt="image" src="https://github.com/user-attachments/assets/074f44c5-3311-442a-83e1-46f6ee3075ad" />
 
 **Table Output. Загрузка в таблицу customers.**
+<img width="1844" height="1053" alt="image" src="https://github.com/user-attachments/assets/3b147de1-5ee1-4e5e-be52-a1d5ae2918f2" />
 
 ### Трансформация 3. Load Products
 
 **Select Values. Оставьте поля продукта (product_id, category, name и т.д.).**
+<img width="1844" height="1053" alt="image" src="https://github.com/user-attachments/assets/a6c7b226-4b88-4103-aba5-c2b7060e5933" />
+
 
 **Memory Group By. Группировка по product_id.**
+<img width="1844" height="1053" alt="image" src="https://github.com/user-attachments/assets/1060761b-ce53-440a-b809-b4159697d769" />
+
 
 **Table Output. Загрузка в таблицу products.**
+<img width="1844" height="1053" alt="image" src="https://github.com/user-attachments/assets/214b96c3-97f7-441c-a9a3-6b7be15bd8d0" />
+
+Шаг 4 Выполнение доп заданий
+
+Настройка инпута 1
+<img width="1833" height="1035" alt="image" src="https://github.com/user-attachments/assets/401be8ec-297f-4e30-b9f9-1e3031bcccf3" />
+```
+SELECT 
+    p.person AS manager,
+    COUNT(DISTINCT o.row_id) AS total_orders,
+    SUM(o.sales) AS total_sales,
+    SUM(o.profit) AS total_profit,
+    AVG(o.discount) AS avg_discount,
+    SUM(o.quantity) AS total_quantity
+FROM orders o
+JOIN products p ON o.product_id = p.product_id
+GROUP BY p.person
+ORDER BY total_sales DESC;
+```
+Настройка инпута 2
+<img width="1833" height="1035" alt="image" src="https://github.com/user-attachments/assets/f5bb5f44-0a7e-491a-aadb-071c8133042e" />
+
+```
+SELECT 
+    c.region,
+    COUNT(DISTINCT o.row_id) AS order_count,
+    SUM(o.sales) AS total_sales,
+    SUM(o.profit) AS total_profit,
+    AVG(o.discount) AS avg_discount,
+    SUM(o.quantity) AS total_quantity,
+    COUNT(DISTINCT c.customer_id) AS customer_count
+FROM orders o
+JOIN customers c ON o.customer_id = c.customer_id
+GROUP BY c.region
+ORDER BY total_sales DESC;
+```
 
 [Файл Job]()
+
 [Файл Transformations orders]()
+
 [Файл Transformations products]()
+
 [Файл Transformations customers]()
+[]()
+[]()
+[]()
