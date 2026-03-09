@@ -40,16 +40,18 @@ CSV: Посещаемость занятий.
 <img width="1633" height="715" alt="image" src="https://github.com/user-attachments/assets/92901712-ed2b-4a78-bebb-3bcec2cac875" />
 
 Загрузка в MySQL:
+<img width="947" height="717" alt="image" src="https://github.com/user-attachments/assets/26ad8fc4-f526-4a36-ad3f-f47d54507d88" />
+<img width="1852" height="730" alt="image" src="https://github.com/user-attachments/assets/a74bf5f9-4436-4aa1-a3b0-062e58bf7f57" />
+
 
 ## Шаг 3. Создание витрины данных (MySQL View)
 
 ZVjSoVl9
 # Файлы
 
-[Файл Transformations orders](KTR/lab_02_1_csv_orders.ktr)
+[Файл Transformations orders]()
 
-[Файл создании БД в PostgreSQL]()
+[Excel файл с данными](Files/grades.xlsx)
 
-[CSV файл с данными]()
+[CSV файл с данными](Files/attendance.csv)
 
-[Генератор данных]()
