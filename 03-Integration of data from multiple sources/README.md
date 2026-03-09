@@ -26,6 +26,7 @@ CSV: Посещаемость занятий.
     <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
     <directory>/</directory>
     <parameters>
     </parameters>
@@ -352,7 +353,7 @@ CSV: Посещаемость занятий.
 
   <step>
     <name>Unique Attendance</name>
-    <type>UniqueRows</type>
+    <type>Unique</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -618,6 +619,7 @@ CSV: Посещаемость занятий.
   <slave_transformation>N</slave_transformation>
   <attributes/>
 </transformation>
+
 
 ```
 
