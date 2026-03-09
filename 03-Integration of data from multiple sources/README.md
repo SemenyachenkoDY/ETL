@@ -142,9 +142,7 @@ CSV: Посещаемость занятий.
     <hop><from>Get Students (Postgres)</from><to>Lookup Grades (Excel)</to><enabled>Y</enabled></hop>
     <hop><from>Lookup Grades (Excel)</from><to>Filter NULL Grades</to><enabled>Y</enabled></hop>
     <hop><from>Filter NULL Grades</from><to>Lookup Attendance</to><enabled>Y</enabled></hop>
-    <hop><from>Lookup Attendance</from><to>Lookup Bonuses (Excel)</to><enabled>Y</enabled></hop>
-    <hop><from>Lookup Bonuses (Excel)</from><to>Lookup Groups (CSV)</to><enabled>Y</enabled></hop>
-    <hop><from>Lookup Groups (CSV)</from><to>Validate Attendance Range</to><enabled>Y</enabled></hop>
+    <hop><from>Lookup Attendance</from><to>Validate Attendance Range</to><enabled>Y</enabled></hop>
     <hop><from>Validate Attendance Range</from><to>Calculate Indicators</to><enabled>Y</enabled></hop>
     <hop><from>Calculate Indicators</from><to>Write to MySQL</to><enabled>Y</enabled></hop>
     <hop><from>Read CSV Attendance</from><to>Sort Attendance</to><enabled>Y</enabled></hop>
@@ -204,27 +202,11 @@ CSV: Посещаемость занятий.
     <fields>
       <field><name>student_id</name><type>Integer</type><length>-1</length><precision>-1</precision><trim_type>none</trim_type><repeat>N</repeat><format/><currency/><decimal/><group/></field>
       <field><name>math_grade</name><type>Integer</type><length>-1</length><precision>-1</precision><trim_type>none</trim_type><repeat>N</repeat><format/><currency/><decimal/><group/></field>
-      <field><name>data_science_grade</name><type>Integer</type><length>-1</length><precision>-1</precision><trim_type>none</trim_type><repeat>N</repeat><format/><currency/><decimal/><group/></field>
+      <field><name>data_science_grade</name><type>Integer</type><length>-1</length><precision>-1</precision><trim_type>none</repeat>N</repeat><format/><currency/><decimal/><group/></field>
       <field><name>programming_grade</name><type>Integer</type><length>-1</length><precision>-1</precision><trim_type>none</trim_type><repeat>N</repeat><format/><currency/><decimal/><group/></field>
     </fields>
     <sheets><sheet><name>Sheet1</name><startrow>0</startrow><startcol>0</startcol></sheet></sheets>
     <strict_types>N</strict_types>
-    <error_ignored>N</error_ignored>
-    <error_line_skipped>N</error_line_skipped>
-    <bad_line_files_destination_directory/>
-    <bad_line_files_extension>warning</bad_line_files_extension>
-    <error_line_files_destination_directory/>
-    <error_line_files_extension>error</error_line_files_extension>
-    <line_number_files_destination_directory/>
-    <line_number_files_extension>line</line_number_files_extension>
-    <shortFileFieldName/>
-    <pathFieldName/>
-    <hiddenFieldName/>
-    <lastModificationTimeFieldName/>
-    <uriNameFieldName/>
-    <rootUriNameFieldName/>
-    <extensionFieldName/>
-    <sizeFieldName/>
     <spreadsheet_type>SAX_POI</spreadsheet_type>
     <attributes/>
     <cluster_schema/>
@@ -265,8 +247,6 @@ CSV: Посещаемость занятий.
     <custom_distribution/>
     <copies>1</copies>
     <partitioning><method>none</method><schema_name/></partitioning>
-    <send_true_to/>
-    <send_false_to/>
     <compare>
       <condition>
         <negated>N</negated>
@@ -303,23 +283,12 @@ CSV: Посещаемость занятий.
     <copies>1</copies>
     <partitioning><method>none</method><schema_name/></partitioning>
     <filename>c:\Users\Даня и Маша\Downloads\Проекты\Lab_ETL\files\attendance.csv</filename>
-    <filename_field/>
-    <rownum_field/>
-    <include_filename>N</include_filename>
-    <separator>,</separator>
-    <enclosure>"</enclosure>
     <header>Y</header>
-    <buffer_size>50000</buffer_size>
-    <lazy_conversion>Y</lazy_conversion>
-    <add_filename_result>N</add_filename_result>
-    <parallel>N</parallel>
-    <newline_possible>N</newline_possible>
-    <format>mixed</format>
-    <encoding/>
+    <separator>,</separator>
     <fields>
-      <field><name>student_id</name><type>Integer</type><format>#</format><currency/><decimal/><group/><length>-1</length><precision>-1</precision><trim_type>none</trim_type></field>
-      <field><name>lectures_attended</name><type>Integer</type><format>#</format><currency/><decimal/><group/><length>-1</length><precision>-1</precision><trim_type>none</trim_type></field>
-      <field><name>total_lectures</name><type>Integer</type><format>#</format><currency/><decimal/><group/><length>-1</length><precision>-1</precision><trim_type>none</trim_type></field>
+      <field><name>student_id</name><type>Integer</type></field>
+      <field><name>lectures_attended</name><type>Integer</type></field>
+      <field><name>total_lectures</name><type>Integer</type></field>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -359,10 +328,6 @@ CSV: Посещаемость занятий.
     <custom_distribution/>
     <copies>1</copies>
     <partitioning><method>none</method><schema_name/></partitioning>
-    <count_rows>N</count_rows>
-    <count_field/>
-    <reject_duplicate_row>N</reject_duplicate_row>
-    <error_description/>
     <fields><field><name>student_id</name><case_sensitive>N</case_sensitive></field></fields>
     <attributes/>
     <cluster_schema/>
@@ -392,113 +357,6 @@ CSV: Посещаемость занятий.
     <cluster_schema/>
     <remotesteps><input></input><output></output></remotesteps>
     <GUI><xloc>500</xloc><yloc>50</yloc><draw>Y</draw></GUI>
-  </step>
-
-  <step>
-    <name>Read Excel Bonuses</name>
-    <type>ExcelInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning><method>none</method><schema_name/></partitioning>
-    <header>Y</header>
-    <noempty>Y</noempty>
-    <stoponempty>N</stoponempty>
-    <filefield/>
-    <sheetfield/>
-    <sheet_rownum_field/>
-    <rownum_field/>
-    <sheetname_field/>
-    <file_aggregation_field/>
-    <dynamic_filenames_field/>
-    <file_lookup_field/>
-    <file>
-      <name>c:\Users\Даня и Маша\Downloads\Проекты\Lab_ETL\files\bonuses.xlsx</name>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>N</file_required>
-      <include_subfolders>N</include_subfolders>
-    </file>
-    <fields>
-      <field><name>student_id</name><type>Integer</type><length>-1</length><precision>-1</precision><trim_type>none</trim_type><repeat>N</repeat><format/><currency/><decimal/><group/></field>
-      <field><name>bonus_points</name><type>Integer</type><length>-1</length><precision>-1</precision><trim_type>none</trim_type><repeat>N</repeat><format/><currency/><decimal/><group/></field>
-    </fields>
-    <sheets><sheet><name>Sheet1</name><startrow>0</startrow><startcol>0</startcol></sheet></sheets>
-    <spreadsheet_type>SAX_POI</spreadsheet_type>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps><input></input><output></output></remotesteps>
-    <GUI><xloc>650</xloc><yloc>150</yloc><draw>Y</draw></GUI>
-  </step>
-
-  <step>
-    <name>Lookup Bonuses (Excel)</name>
-    <type>StreamLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning><method>none</method><schema_name/></partitioning>
-    <from>Read Excel Bonuses</from>
-    <input_sorted>N</input_sorted>
-    <preserve_memory>Y</preserve_memory>
-    <sorted_list>N</sorted_list>
-    <integer_pair>N</integer_pair>
-    <lookup>
-      <key><name>student_id</name><field>student_id</field></key>
-      <value><name>bonus_points</name><rename>bonus_points</rename><default>0</default><type>Integer</type></value>
-    </lookup>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps><input></input><output></output></remotesteps>
-    <GUI><xloc>650</xloc><yloc>50</yloc><draw>Y</draw></GUI>
-  </step>
-
-  <step>
-    <name>Read CSV Group Info</name>
-    <type>CsvInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning><method>none</method><schema_name/></partitioning>
-    <filename>c:\Users\Даня и Маша\Downloads\Проекты\Lab_ETL\files\group_info.csv</filename>
-    <header>Y</header>
-    <separator>,</separator>
-    <fields>
-      <field><name>student_id</name><type>Integer</type></field>
-      <field><name>group_code</name><type>String</type></field>
-      <field><name>is_active</name><type>Boolean</type></field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps><input></input><output></output></remotesteps>
-    <GUI><xloc>800</xloc><yloc>150</yloc><draw>Y</draw></GUI>
-  </step>
-
-  <step>
-    <name>Lookup Groups (CSV)</name>
-    <type>StreamLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning><method>none</method><schema_name/></partitioning>
-    <from>Read CSV Group Info</from>
-    <input_sorted>N</input_sorted>
-    <preserve_memory>Y</preserve_memory>
-    <sorted_list>N</sorted_list>
-    <integer_pair>N</integer_pair>
-    <lookup>
-      <key><name>student_id</name><field>student_id</field></key>
-      <value><name>group_code</name><rename>group_code</rename><default>N/A</default><type>String</type></value>
-      <value><name>is_active</name><rename>is_active</rename><default>N</default><type>Boolean</type></value>
-    </lookup>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps><input></input><output></output></remotesteps>
-    <GUI><xloc>800</xloc><yloc>50</yloc><draw>Y</draw></GUI>
   </step>
 
   <step>
@@ -533,7 +391,7 @@ CSV: Посещаемость занятий.
     <attributes/>
     <cluster_schema/>
     <remotesteps><input></input><output></output></remotesteps>
-    <GUI><xloc>950</xloc><yloc>50</yloc><draw>Y</draw></GUI>
+    <GUI><xloc>650</xloc><yloc>50</yloc><draw>Y</draw></GUI>
   </step>
 
   <step>
@@ -579,7 +437,7 @@ CSV: Посещаемость занятий.
     <attributes/>
     <cluster_schema/>
     <remotesteps><input></input><output></output></remotesteps>
-    <GUI><xloc>1100</xloc><yloc>50</yloc><draw>Y</draw></GUI>
+    <GUI><xloc>800</xloc><yloc>50</yloc><draw>Y</draw></GUI>
   </step>
 
   <step>
@@ -603,15 +461,13 @@ CSV: Посещаемость занятий.
       <field><column_name>student_id</column_name><stream_name>student_id</stream_name></field>
       <field><column_name>full_name</column_name><stream_name>full_name</stream_name></field>
       <field><column_name>major</column_name><stream_name>major</stream_name></field>
-      <field><column_name>group_code</column_name><stream_name>group_code</stream_name></field>
       <field><column_name>avg_grade</column_name><stream_name>avg_grade</stream_name></field>
       <field><column_name>attendance_rate</column_name><stream_name>attendance_rate</stream_name></field>
-      <field><column_name>bonus_points</column_name><stream_name>bonus_points</stream_name></field>
     </fields>
     <attributes/>
     <cluster_schema/>
     <remotesteps><input></input><output></output></remotesteps>
-    <GUI><xloc>1250</xloc><yloc>50</yloc><draw>Y</draw></GUI>
+    <GUI><xloc>950</xloc><yloc>50</yloc><draw>Y</draw></GUI>
   </step>
 
   <step_error_handling></step_error_handling>
@@ -619,7 +475,6 @@ CSV: Посещаемость занятий.
   <slave_transformation>N</slave_transformation>
   <attributes/>
 </transformation>
-
 
 ```
 
