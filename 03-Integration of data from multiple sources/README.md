@@ -59,6 +59,81 @@ CSV: Посещаемость занятий.
         <field><id>EXECUTING_USER</id><enabled>N</enabled><name>EXECUTING_USER</name></field>
         <field><id>CLIENT</id><enabled>N</enabled><name>CLIENT</name></field>
       </trans-log-table>
+      <perf-log-table>
+        <connection/>
+        <schema/>
+        <table/>
+        <interval/>
+        <timeout_days/>
+        <field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field>
+        <field><id>SEQ_NR</id><enabled>Y</enabled><name>SEQ_NR</name></field>
+        <field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field>
+        <field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field>
+        <field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field>
+        <field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field>
+        <field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field>
+        <field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field>
+        <field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field>
+        <field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field>
+        <field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field>
+        <field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field>
+        <field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field>
+        <field><id>INPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>INPUT_BUFFER_ROWS</name></field>
+        <field><id>OUTPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>OUTPUT_BUFFER_ROWS</name></field>
+      </perf-log-table>
+      <channel-log-table>
+        <connection/>
+        <schema/>
+        <table/>
+        <timeout_days/>
+        <field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field>
+        <field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field>
+        <field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field>
+        <field><id>LOGGING_OBJECT_TYPE</id><enabled>Y</enabled><name>LOGGING_OBJECT_TYPE</name></field>
+        <field><id>OBJECT_NAME</id><enabled>Y</enabled><name>OBJECT_NAME</name></field>
+        <field><id>OBJECT_COPY</id><enabled>Y</enabled><name>OBJECT_COPY</name></field>
+        <field><id>REPOSITORY_DIRECTORY</id><enabled>Y</enabled><name>REPOSITORY_DIRECTORY</name></field>
+        <field><id>FILENAME</id><enabled>Y</enabled><name>FILENAME</name></field>
+        <field><id>OBJECT_ID</id><enabled>Y</enabled><name>OBJECT_ID</name></field>
+        <field><id>OBJECT_REVISION</id><enabled>Y</enabled><name>OBJECT_REVISION</name></field>
+        <field><id>PARENT_CHANNEL_ID</id><enabled>Y</enabled><name>PARENT_CHANNEL_ID</name></field>
+        <field><id>ROOT_CHANNEL_ID</id><enabled>Y</enabled><name>ROOT_CHANNEL_ID</name></field>
+      </channel-log-table>
+      <step-log-table>
+        <connection/>
+        <schema/>
+        <table/>
+        <timeout_days/>
+        <field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field>
+        <field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field>
+        <field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field>
+        <field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field>
+        <field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field>
+        <field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field>
+        <field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field>
+        <field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field>
+        <field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field>
+        <field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field>
+        <field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field>
+        <field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field>
+        <field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field>
+        <field><id>LOG_FIELD</id><enabled>N</enabled><name>LOG_FIELD</name></field>
+      </step-log-table>
+      <metrics-log-table>
+        <connection/>
+        <schema/>
+        <table/>
+        <timeout_days/>
+        <field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field>
+        <field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field>
+        <field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field>
+        <field><id>METRICS_DATE</id><enabled>Y</enabled><name>METRICS_DATE</name></field>
+        <field><id>METRICS_CODE</id><enabled>Y</enabled><name>METRICS_CODE</name></field>
+        <field><id>METRICS_DESCRIPTION</id><enabled>Y</enabled><name>METRICS_DESCRIPTION</name></field>
+        <field><id>METRICS_SUBJECT</id><enabled>Y</enabled><name>METRICS_SUBJECT</name></field>
+        <field><id>METRICS_TYPE</id><enabled>Y</enabled><name>METRICS_TYPE</name></field>
+        <field><id>METRICS_VALUE</id><enabled>Y</enabled><name>METRICS_VALUE</name></field>
+      </metrics-log-table>
     </log>
     <maxdate>
       <connection/>
@@ -202,11 +277,27 @@ CSV: Посещаемость занятий.
     <fields>
       <field><name>student_id</name><type>Integer</type><length>-1</length><precision>-1</precision><trim_type>none</trim_type><repeat>N</repeat><format/><currency/><decimal/><group/></field>
       <field><name>math_grade</name><type>Integer</type><length>-1</length><precision>-1</precision><trim_type>none</trim_type><repeat>N</repeat><format/><currency/><decimal/><group/></field>
-      <field><name>data_science_grade</name><type>Integer</type><length>-1</length><precision>-1</precision><trim_type>none</repeat>N</repeat><format/><currency/><decimal/><group/></field>
+      <field><name>data_science_grade</name><type>Integer</type><length>-1</length><precision>-1</precision><trim_type>none</trim_type><repeat>N</repeat><format/><currency/><decimal/><group/></field>
       <field><name>programming_grade</name><type>Integer</type><length>-1</length><precision>-1</precision><trim_type>none</trim_type><repeat>N</repeat><format/><currency/><decimal/><group/></field>
     </fields>
     <sheets><sheet><name>Sheet1</name><startrow>0</startrow><startcol>0</startcol></sheet></sheets>
     <strict_types>N</strict_types>
+    <error_ignored>N</error_ignored>
+    <error_line_skipped>N</error_line_skipped>
+    <bad_line_files_destination_directory/>
+    <bad_line_files_extension>warning</bad_line_files_extension>
+    <error_line_files_destination_directory/>
+    <error_line_files_extension>error</error_line_files_extension>
+    <line_number_files_destination_directory/>
+    <line_number_files_extension>line</line_number_files_extension>
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
     <spreadsheet_type>SAX_POI</spreadsheet_type>
     <attributes/>
     <cluster_schema/>
@@ -247,6 +338,8 @@ CSV: Посещаемость занятий.
     <custom_distribution/>
     <copies>1</copies>
     <partitioning><method>none</method><schema_name/></partitioning>
+    <send_true_to/>
+    <send_false_to/>
     <compare>
       <condition>
         <negated>N</negated>
@@ -283,12 +376,23 @@ CSV: Посещаемость занятий.
     <copies>1</copies>
     <partitioning><method>none</method><schema_name/></partitioning>
     <filename>c:\Users\Даня и Маша\Downloads\Проекты\Lab_ETL\files\attendance.csv</filename>
-    <header>Y</header>
+    <filename_field/>
+    <rownum_field/>
+    <include_filename>N</include_filename>
     <separator>,</separator>
+    <enclosure>"</enclosure>
+    <header>Y</header>
+    <buffer_size>50000</buffer_size>
+    <lazy_conversion>Y</lazy_conversion>
+    <add_filename_result>N</add_filename_result>
+    <parallel>N</parallel>
+    <newline_possible>N</newline_possible>
+    <format>mixed</format>
+    <encoding/>
     <fields>
-      <field><name>student_id</name><type>Integer</type></field>
-      <field><name>lectures_attended</name><type>Integer</type></field>
-      <field><name>total_lectures</name><type>Integer</type></field>
+      <field><name>student_id</name><type>Integer</type><format>#</format><currency/><decimal/><group/><length>-1</length><precision>-1</precision><trim_type>none</trim_type></field>
+      <field><name>lectures_attended</name><type>Integer</type><format>#</format><currency/><decimal/><group/><length>-1</length><precision>-1</precision><trim_type>none</trim_type></field>
+      <field><name>total_lectures</name><type>Integer</type><format>#</format><currency/><decimal/><group/><length>-1</length><precision>-1</precision><trim_type>none</trim_type></field>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -328,6 +432,10 @@ CSV: Посещаемость занятий.
     <custom_distribution/>
     <copies>1</copies>
     <partitioning><method>none</method><schema_name/></partitioning>
+    <count_rows>N</count_rows>
+    <count_field/>
+    <reject_duplicate_row>N</reject_duplicate_row>
+    <error_description/>
     <fields><field><name>student_id</name><case_sensitive>N</case_sensitive></field></fields>
     <attributes/>
     <cluster_schema/>
@@ -475,6 +583,7 @@ CSV: Посещаемость занятий.
   <slave_transformation>N</slave_transformation>
   <attributes/>
 </transformation>
+
 
 ```
 
