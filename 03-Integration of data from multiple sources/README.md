@@ -57,9 +57,40 @@ CSV: Посещаемость занятий.
 <img width="1852" height="730" alt="image" src="https://github.com/user-attachments/assets/a74bf5f9-4436-4aa1-a3b0-062e58bf7f57" />
 
 ## Шаг 4. Создание витрины данных (MySQL View)
+```
+CREATE VIEW student_performance_analysis AS
+SELECT 
+    id,
+    name,
+    department,
+    email,
+    math_grade,
+    data_science_grade,
+    programming_grade,
+    lectures_attended,
+    total_lectures,
+    avg_grade,
+    attendance_rate,
+    -- Категория успеваемости на основе среднего балла
+    CASE
+        WHEN avg_grade >= 85 THEN 'Высокий'
+        WHEN avg_grade >= 70 THEN 'Средний'
+        WHEN avg_grade >= 50 THEN 'Низкий'
+        WHEN avg_grade IS NOT NULL THEN 'Критический'
+        ELSE 'Нет данных'
+    END AS performance_category,
+    -- Процент посещаемости (уже есть в attendance_rate, но для наглядности)
+    ROUND(attendance_rate, 1) AS attendance_percent,
+    -- Флаг: полностью ли заполнены основные оценки
+    (math_grade IS NOT NULL AND data_science_grade IS NOT NULL AND programming_grade IS NOT NULL) 
+        AS has_all_grades
+FROM student_performance_stats
+-- Исключаем строки, где нет ни одной оценки и посещаемости (полностью пустые)
+WHERE (math_grade IS NOT NULL OR data_science_grade IS NOT NULL OR programming_grade IS NOT NULL)
+   OR attendance_rate IS NOT NULL;
+```
+<img width="1858" height="1046" alt="image" src="https://github.com/user-attachments/assets/1ae5833a-9c40-4fb9-be86-21baecdaee69" />
 
-
-ZVjSoVl9
 # Файлы
 
 [Файл Transformations]()
