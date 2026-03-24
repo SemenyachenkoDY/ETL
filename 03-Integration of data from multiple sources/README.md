@@ -15,7 +15,16 @@ CSV: Посещаемость занятий.
 ## Шаг 1.  Архитектура решения
 <img width="979" height="714" alt="image" src="https://github.com/user-attachments/assets/2d0e7d71-b328-41e1-b7d8-d961453e80cd" />
 
-## Шаг 2. Разработка трансформации в Pentaho (Spoon)
+## Шаг 2. Создание таблицы и её заполнение в PostgreSQL:
+
+### Создание таблицы: 
+
+### Заполнение таблицы
+
+### Вид таблицы
+
+
+## Шаг 3. Разработка трансформации в Pentaho (Spoon)
 
 ОБщий вид, трансформации:
 <img width="1919" height="1010" alt="image" src="https://github.com/user-attachments/assets/5f29b0de-ee43-4763-88ea-fd0a45039d36" />
@@ -43,8 +52,7 @@ CSV: Посещаемость занятий.
 <img width="947" height="717" alt="image" src="https://github.com/user-attachments/assets/26ad8fc4-f526-4a36-ad3f-f47d54507d88" />
 <img width="1852" height="730" alt="image" src="https://github.com/user-attachments/assets/a74bf5f9-4436-4aa1-a3b0-062e58bf7f57" />
 
-
-## Шаг 3. Создание витрины данных (MySQL View)
+## Шаг 4. Создание витрины данных (MySQL View)
 
 ZVjSoVl9
 # Файлы
