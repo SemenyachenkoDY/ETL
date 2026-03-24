@@ -35,6 +35,7 @@ CSV: Посещаемость занятий.
 ### Настройка основных узлов:
 
 Подключение PostgreSQL:
+<img width="1856" height="1041" alt="image" src="https://github.com/user-attachments/assets/c4ad9f28-d25f-4d08-a988-6c4342c5414d" />
 
 Подкючение Excel файла:
 <img width="1627" height="893" alt="image" src="https://github.com/user-attachments/assets/6f5269d2-5836-41dc-8c43-a68907b64f20" />
@@ -56,24 +57,12 @@ CSV: Посещаемость занятий.
 <img width="1852" height="730" alt="image" src="https://github.com/user-attachments/assets/a74bf5f9-4436-4aa1-a3b0-062e58bf7f57" />
 
 ## Шаг 4. Создание витрины данных (MySQL View)
-CREATE TABLE IF NOT EXISTS student_performance_stats (
-    id INT(9) PRIMARY KEY,
-    name VARCHAR(50),
-    department VARCHAR(50),
-    email VARCHAR(100),
-    math_grade INT,
-    data_science_grade INT,
-    programming_grade INT,
-    lectures_attended INT,
-    total_lectures INT,
-    avg_grade DECIMAL(10,2),
-    attendance_rate DECIMAL(10,2)
-);
+
 
 ZVjSoVl9
 # Файлы
 
-[Файл Transformations orders]()
+[Файл Transformations]()
 
 [Excel файл с данными](Files/grades.xlsx)
 
