@@ -18,13 +18,13 @@ CSV: Посещаемость занятий.
 ## Шаг 2. Создание таблицы и её заполнение в PostgreSQL:
 
 ### Создание таблицы: 
-<img width="1919" height="1010" alt="image" src="" />
+<img width="1919" height="1010" alt="image" src="Files/Снимок%20экрана%202026-03-24%20104139.png" />
 
 ### Заполнение таблицы
-<img width="1919" height="1010" alt="image" src="" />
+<img width="1919" height="1010" alt="image" src="Files/Снимок%20экрана%202026-03-24%20104220.png" />
 
 ### Вид таблицы
-<img width="1919" height="1010" alt="image" src="" />
+<img width="1919" height="1010" alt="image" src="Files/Снимок%20экрана%202026-03-24%20104301.png" />
 
 
 ## Шаг 3. Разработка трансформации в Pentaho (Spoon)
