@@ -56,6 +56,19 @@ CSV: Посещаемость занятий.
 <img width="1852" height="730" alt="image" src="https://github.com/user-attachments/assets/a74bf5f9-4436-4aa1-a3b0-062e58bf7f57" />
 
 ## Шаг 4. Создание витрины данных (MySQL View)
+CREATE TABLE IF NOT EXISTS student_performance_stats (
+    id INT(9) PRIMARY KEY,
+    name VARCHAR(50),
+    department VARCHAR(50),
+    email VARCHAR(100),
+    math_grade INT,
+    data_science_grade INT,
+    programming_grade INT,
+    lectures_attended INT,
+    total_lectures INT,
+    avg_grade DECIMAL(10,2),
+    attendance_rate DECIMAL(10,2)
+);
 
 ZVjSoVl9
 # Файлы
