@@ -79,13 +79,12 @@ SELECT
         WHEN avg_grade IS NOT NULL THEN 'Критический'
         ELSE 'Нет данных'
     END AS performance_category,
-    -- Процент посещаемости (уже есть в attendance_rate, но для наглядности)
+    -- Процент посещаемости
     ROUND(attendance_rate, 1) AS attendance_percent,
-    -- Флаг: полностью ли заполнены основные оценки
     (math_grade IS NOT NULL AND data_science_grade IS NOT NULL AND programming_grade IS NOT NULL) 
         AS has_all_grades
 FROM student_performance_stats
--- Исключаем строки, где нет ни одной оценки и посещаемости (полностью пустые)
+-- Исключаем строки, где нет ни одной оценки и посещаемости 
 WHERE (math_grade IS NOT NULL OR data_science_grade IS NOT NULL OR programming_grade IS NOT NULL)
    OR attendance_rate IS NOT NULL;
 ```
