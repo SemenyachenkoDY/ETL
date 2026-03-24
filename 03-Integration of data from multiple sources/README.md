@@ -30,7 +30,7 @@ CSV: Посещаемость занятий.
 ## Шаг 3. Разработка трансформации в Pentaho (Spoon)
 
 ОБщий вид, трансформации:
-<img width="1919" height="1010" alt="image" src="https://github.com/user-attachments/assets/5f29b0de-ee43-4763-88ea-fd0a45039d36" />
+<img width="1807" height="787" alt="image" src="https://github.com/user-attachments/assets/75e96d12-3e8b-4e98-9ec9-1b15c960bc44" />
 
 ### Настройка основных узлов:
 
