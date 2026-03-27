@@ -135,18 +135,59 @@ print("Результат вычисления DAG:", z.compute())
 Построение многоуровневого графа для анализа доли нарушений в часы пик (8:00 - 10:00) в разрезе округов (Violation County).
 
 ```python
+from dask import delayed
+from IPython.display import Image
+
+# Список районов для анализа
 districts = ['NY', 'K', 'Q', 'BX', 'R']
 
-layer1 = [delayed(load_district_data)(d, df_final) for d in districts] # Фильтрация
-layer2 = [delayed(count_violations)(d) for d in layer1]                # Всего в районе
-layer3 = [delayed(count_peak_hours)(d) for d in layer1]               # В часы пик
-layer4 = [delayed(calculate_p)(t, p) for t, p in zip(layer2, layer3)]   # Процент %
+def load_district_data(district):
+    return df_final[df_final['Violation County'] == district]
 
-final_results = delayed(list)(layer4)
-final_results.visualize(filename='complex_graph.png')
+def count_violations(district_data):
+    return len(district_data)
+
+def count_peak_hours(district_data):
+    if district_data is None or len(district_data) == 0: return 0
+    # Выделяем часы из Violation Time (первые 2 символа)
+    hours = district_data['Violation Time'].astype(str).str[:2]
+    peak = hours[hours.isin(['08', '09', '10'])]
+    return len(peak)
+
+def calculate_peak_percentage(total, peak):
+    if total == 0: return 0
+    return round((peak / total) * 100, 2)
+
+layer1 = [delayed(load_district_data)(d) for d in districts]
+layer2 = [delayed(count_violations)(d) for d in layer1]
+layer3 = [delayed(count_peak_hours)(d) for d in layer1]
+layer4 = [delayed(calculate_peak_percentage)(t, p) for t, p in zip(layer2, layer3)]
+
+results = delayed(list)(layer4)
+
+try:
+    results.visualize(filename='complex_district_analysis.png')
+    display(Image('complex_district_analysis.png'))
+except:
+    print("Graphviz error.")
+
+print("Результаты по районам % (NY, K, Q, BX, R):", results.compute())
 ```
 Результат:
 
 <img width="350" height="275" alt="image" src="img/complex_district_analysis.png" />
 
 ## Аналитика
+<img width="1011" height="615" alt="image" src="https://github.com/user-attachments/assets/f6dcfc8b-9225-403a-bb77-75c2d8300996" />
+<img width="954" height="613" alt="image" src="https://github.com/user-attachments/assets/595dd4bf-3756-4717-95cc-97369e7a94c1" />
+<img width="894" height="604" alt="image" src="https://github.com/user-attachments/assets/62396996-78ae-4b71-a54e-6dea9403fa7a" />
+<img width="879" height="624" alt="image" src="https://github.com/user-attachments/assets/d97b5df2-4d47-44a5-9439-7f9e37160e93" />
+<img width="1174" height="634" alt="image" src="https://github.com/user-attachments/assets/0e2618de-1cea-40ca-8fe4-f6fc9160c46c" />
+<img width="878" height="611" alt="image" src="https://github.com/user-attachments/assets/f24b0195-9737-4c4c-b060-b80eb55313ad" />
+<img width="860" height="710" alt="image" src="https://github.com/user-attachments/assets/0e486291-934a-485e-9fa2-f062056f822d" />
+
+
+
+
+
+
