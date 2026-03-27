@@ -126,7 +126,9 @@ except:
 
 print("Результат вычисления DAG:", z.compute())
 ```
-Результат: <img width="1754" height="275" alt="image" src="img/simple_violation_analysis.png" />
+Результат: 
+
+<img width="350" height="275" alt="image" src="img/simple_violation_analysis.png" />
 
 ### 2. Сложный граф (Анализ по районам NYC)
 
@@ -143,6 +145,8 @@ layer4 = [delayed(calculate_p)(t, p) for t, p in zip(layer2, layer3)]   # Про
 final_results = delayed(list)(layer4)
 final_results.visualize(filename='complex_graph.png')
 ```
-Результат:Результат: <img width="1754" height="275" alt="image" src="img/complex_district_analysis.png" />
+Результат:
+
+<img width="350" height="275" alt="image" src="img/complex_district_analysis.png" />
 
 ## Аналитика
