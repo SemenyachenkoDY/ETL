@@ -46,6 +46,46 @@ graph TD
     BROWSER -->|Views Dashboard| STR
 ```
 
+Вернхеуровневая архитектура
+```mermaid
+graph TD
+    %% Определение стилей
+    classDef source fill:#e1f5fe,stroke:#01579b,stroke-width:2px,color:#01579b;
+    classDef storage fill:#fff3e0,stroke:#e65100,stroke-width:2px,color:#e65100;
+    classDef process fill:#f3e5f5,stroke:#4a148c,stroke-width:2px,color:#4a148c;
+    classDef business fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px,color:#1b5e20;
+
+    subgraph SL ["🌐 Source Layer (Источники)"]
+        API["☁️ Open-Meteo API<br/>(Погода)"]:::source
+        SIM["📊 Sales Simulation<br/>(Скрипт генерации)"]:::source
+    end
+
+    subgraph PL ["⚙️ Processing Layer (Оркестрация)"]
+        AF["🚀 Airflow DAG<br/>'variant_14_warsaw'"]:::process
+    end
+
+    subgraph ST ["💾 Storage Layer (Хранение)"]
+        CSV["📄 Data Lake<br/>(CSV-файлы)"]:::storage
+        MOD["🤖 ML Registry<br/>(ml_model.pkl)"]:::storage
+        IMG["🖼️ Reports<br/>(PNG-отчеты)"]:::storage
+    end
+
+    subgraph BL ["📈 Business Layer (Потребители)"]
+        BI["🖥️ BI Dashboard<br/>(Streamlit)"]:::business
+        NB["📓 Data Research<br/>(Jupyter Notebook)"]:::business
+    end
+
+    %% Потоки данных
+    SL -->|Ingestion| AF
+    AF -->|Extraction| CSV
+    AF -->|Model Training| MOD
+    AF -->|Reporting| IMG
+    
+    CSV -->|Analytics| BL
+    MOD -->|Inference| BL
+    IMG -->|Visualization| BI
+```
+
 ## Технический стек
 * **Оркестрация:** Apache Airflow 2.8.1
 * **Контейнеризация:** Docker, Docker Compose
