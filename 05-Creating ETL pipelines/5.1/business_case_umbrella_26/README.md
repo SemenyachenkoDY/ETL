@@ -1,4 +1,4 @@
-# Проектный практикум по разработке ETL-решений: Лабораторная работа №5
+<img width="1075" height="188" alt="image" src="https://github.com/user-attachments/assets/eddea979-314a-4eff-b3fa-928988e7d6a3" /># Проектный практикум по разработке ETL-решений: Лабораторная работа №5
 
 ## Постановка задачи (Вариант 14)
 Разработать контейнеризированное ETL-решение на базе Apache Airflow для автоматизации пайплайна обработки данных со следующими требованиями:
@@ -437,18 +437,22 @@ sudo chown -R dev:dev /home/dev/Downloads/practice/business_case_umbrella_25
 ```bash
 docker build -t custom-airflow:slim-2.8.1-python3.11 .
 ```
+<img width="1919" height="1011" alt="image" src="https://github.com/user-attachments/assets/cabbfa71-b5c0-4ffd-bac7-b32138a1f79a" />
 
 ### Запуск проекта
 После того как образ успешно собран, запустите всю инфраструктуру (PostgreSQL, Airflow Init, Webserver, Scheduler и Streamlit) в фоновом режиме:
 ```bash
 docker compose up -d
 ```
+<img width="1075" height="188" alt="image" src="https://github.com/user-attachments/assets/9869e841-b601-4fec-bf30-78f72085debd" />
 
 ### Проверка запущенных контейнеров
 Убедитесь, что инфраструктура поднялась без ошибок. Для вывода списка активных контейнеров и их статусов используйте команду:
 ```bash
 docker ps
 ```
+<img width="1919" height="1007" alt="image" src="https://github.com/user-attachments/assets/9976f40d-c049-4bbe-850a-8047c4e78128" />
+
 *(Вы должны увидеть контейнеры с именами, содержащими `postgres`, `webserver`, `scheduler`, `streamlit`. Контейнер `init` завершит работу после настройки БД).*
 
 ### Просмотр логов
@@ -461,6 +465,8 @@ docker compose logs -f
 ```bash
 docker compose logs init
 ```
+<img width="1919" height="989" alt="image" src="https://github.com/user-attachments/assets/76691a53-cadd-428b-a18d-478d121445bf" />
+
 *(Для выхода из режима потокового чтения логов нажмите `Ctrl+C`)*.
 
 ### Выполнение DAG и получение визуализации
@@ -469,9 +475,12 @@ docker compose logs init
    * Авторизуйтесь (логин: `admin`, пароль: `admin`).
    * Найдите ваш DAG в списке, снимите его с паузы (переключатель слева) и запустите вручную, нажав кнопку **Play (▶)** ➜ **Trigger DAG**.
    * Дождитесь успешного выполнения всех задач (статус поменяется на темно-зеленый "Success"). Данные скачаются, обработаются и сохранится модель.
+   <img width="1848" height="956" alt="image" src="https://github.com/user-attachments/assets/55d2c1ee-ff1f-4906-83d5-8fb07168fc11" />
+
 2. **Просмотр визуализации (Streamlit):**
    * Перейдите по адресу [http://localhost:8501](http://localhost:8501).
    * На открывшемся дашборде вы увидите очищенную таблицу данных и итоговую таблицу средних температур по рабочим дням.
+<img width="1847" height="951" alt="image" src="https://github.com/user-attachments/assets/b4a194d1-f5f0-45e4-8a87-1f25e2cce0a0" />
 
 ### Выключение проекта и полная очистка ресурсов
 После успешного завершения работы необходимо остановить сервисы, удалить контейнеры, очистить сеть, тома данных (volumes) и собранные образы.
@@ -480,10 +489,14 @@ docker compose logs init
 ```bash
 docker compose down -v
 ```
+<img width="1916" height="1003" alt="image" src="https://github.com/user-attachments/assets/2a675a27-a2cf-45b7-9a8e-9ad65bccd6f5" />
+
 2. Удаление кастомного Docker-образа Airflow:
 ```bash
 docker rmi custom-airflow:slim-2.8.1-python3.11
 ```
+<img width="1919" height="1010" alt="image" src="https://github.com/user-attachments/assets/a317da29-347e-4e53-b1ce-a7e5027daa9f" />
+
 3. *(Опционально)* Очистка системы от зависших ("dangling") сетей и слоёв кэша сборки:
 ```bash
 docker network prune -f
@@ -493,3 +506,5 @@ docker image prune -f
 ```bash
 rm -rf data/*
 ```
+<img width="1919" height="1003" alt="image" src="https://github.com/user-attachments/assets/9d269c83-800d-43a3-80b2-87f83463405a" />
+
