@@ -6,7 +6,9 @@ import os
 st.set_page_config(page_title="Прогноз погоды Варшава", layout="wide")
 st.title("Анализ погоды в Варшаве на 5 дней (Вариант 14)")
 
-data_path = '/opt/airflow/data/clean_weather.csv'
+# Use relative path for portability
+base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+data_path = os.path.join(base_dir, 'data', 'clean_weather.csv')
 
 if os.path.exists(data_path):
     df = pd.read_csv(data_path)
