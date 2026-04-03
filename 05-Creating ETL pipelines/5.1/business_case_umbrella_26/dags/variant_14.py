@@ -44,13 +44,16 @@ def fetch_weather_forecast():
         'temperature': temperatures
     })
     
-    data_dir = '/opt/airflow/data'
+    # Use relative path for portability
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    data_dir = os.path.join(base_dir, 'data')
     os.makedirs(data_dir, exist_ok=True)
     df.to_csv(os.path.join(data_dir, 'weather_forecast.csv'), index=False)
     print("Weather forecast for Warsaw saved.")
 
 def clean_weather_data():
-    data_dir = '/opt/airflow/data'
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    data_dir = os.path.join(base_dir, 'data')
     df = pd.read_csv(os.path.join(data_dir, 'weather_forecast.csv'))
     
     df['temperature'] = df['temperature'].ffill()
@@ -67,7 +70,8 @@ def clean_weather_data():
     print("Cleaned weather data saved.")
 
 def visualize_table():
-    data_dir = '/opt/airflow/data'
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    data_dir = os.path.join(base_dir, 'data')
     df = pd.read_csv(os.path.join(data_dir, 'clean_weather.csv'))
     
     # Filter working days and group by weekday to get average
@@ -97,7 +101,8 @@ def visualize_table():
     print("Visualization saved securely.")
 
 def fetch_sales_data():
-    data_dir = '/opt/airflow/data'
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    data_dir = os.path.join(base_dir, 'data')
     weather_df = pd.read_csv(os.path.join(data_dir, 'clean_weather.csv'))
     dates = weather_df['date'].tolist()
     
@@ -108,13 +113,15 @@ def fetch_sales_data():
     print("Sales data saved.")
 
 def clean_sales_data():
-    data_dir = '/opt/airflow/data'
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    data_dir = os.path.join(base_dir, 'data')
     df = pd.read_csv(os.path.join(data_dir, 'sales_data.csv'))
     df['sales'] = df['sales'].ffill()
     df.to_csv(os.path.join(data_dir, 'clean_sales.csv'), index=False)
 
 def join_datasets():
-    data_dir = '/opt/airflow/data'
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    data_dir = os.path.join(base_dir, 'data')
     weather_df = pd.read_csv(os.path.join(data_dir, 'clean_weather.csv'))
     sales_df = pd.read_csv(os.path.join(data_dir, 'clean_sales.csv'))
     
@@ -122,7 +129,8 @@ def join_datasets():
     joined_df.to_csv(os.path.join(data_dir, 'joined_data.csv'), index=False)
 
 def train_ml_model():
-    data_dir = '/opt/airflow/data'
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    data_dir = os.path.join(base_dir, 'data')
     df = pd.read_csv(os.path.join(data_dir, 'joined_data.csv'))
     
     X = df[['temperature']]
@@ -134,7 +142,8 @@ def train_ml_model():
     joblib.dump(model, os.path.join(data_dir, 'ml_model.pkl'))
 
 def deploy_ml_model():
-    data_dir = '/opt/airflow/data'
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    data_dir = os.path.join(base_dir, 'data')
     model = joblib.load(os.path.join(data_dir, 'ml_model.pkl'))
     print("Model deployed successfully:", model)
 
@@ -148,6 +157,6 @@ t6 = PythonOperator(task_id="train_ml_model", python_callable=train_ml_model, da
 t7 = PythonOperator(task_id="deploy_ml_model", python_callable=deploy_ml_model, dag=dag)
 
 t1 >> t2 >> t_vis
-t3 >> t4
+t2 >> t3 >> t4
 [t2, t4] >> t5
 t5 >> t6 >> t7
