@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #vis.vega-embed {
+      width: 100%;
+      display: flex;
+    }
+
+    #vis.vega-embed details,
+    #vis.vega-embed details summary {
+      position: relative;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@5.20.1"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "data": {"name": "data-5e6c08ec75a53120bbc4d4eb87ba0e76"}, "mark": {"type": "bar"}, "encoding": {"color": {"field": "Count", "legend": null, "scale": {"scheme": "viridis"}, "type": "quantitative"}, "tooltip": [{"field": "Street Name", "type": "nominal"}, {"field": "Count", "type": "quantitative"}], "x": {"field": "Count", "title": "\u041a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e \u043d\u0430\u0440\u0443\u0448\u0435\u043d\u0438\u0439", "type": "quantitative"}, "y": {"field": "Street Name", "sort": "-x", "title": "\u0423\u043b\u0438\u0446\u0430", "type": "nominal"}}, "height": 400, "title": "\u0422\u043e\u043f-10 \u0443\u043b\u0438\u0446 \u0441 \u043d\u0430\u0438\u0431\u043e\u043b\u044c\u0448\u0438\u043c \u043a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e\u043c \u043d\u0430\u0440\u0443\u0448\u0435\u043d\u0438\u0439", "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v5.20.1.json", "datasets": {"data-5e6c08ec75a53120bbc4d4eb87ba0e76": [{"Street Name": "8th Ave", "Count": 142}, {"Street Name": "Queens Blvd", "Count": 144}, {"Street Name": "7th Ave", "Count": 175}, {"Street Name": "Lexington Ave", "Count": 178}, {"Street Name": "1st Ave", "Count": 183}, {"Street Name": "2nd Ave", "Count": 196}, {"Street Name": "5th Ave", "Count": 235}, {"Street Name": "Madison Ave", "Count": 240}, {"Street Name": "3rd Ave", "Count": 323}, {"Street Name": "Broadway", "Count": 520}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>
