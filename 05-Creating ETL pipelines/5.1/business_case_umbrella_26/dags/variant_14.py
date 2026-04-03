@@ -34,8 +34,17 @@ def fetch_weather_forecast():
     )
     
     response = requests.get(url)
+    if response.status_code != 200:
+        print(f"Error fetching weather data: {response.status_code}")
+        print(f"Response text: {response.text}")
+        raise Exception(f"API request failed with status {response.status_code}")
+
     data = response.json()
     
+    if 'daily' not in data:
+        print(f"Unexpected API response structure: {data}")
+        raise KeyError("'daily' not found in API response")
+
     dates = data['daily']['time']
     temperatures = data['daily']['temperature_2m_mean']
     
@@ -47,9 +56,18 @@ def fetch_weather_forecast():
     # Use relative path for portability
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     data_dir = os.path.join(base_dir, 'data')
-    os.makedirs(data_dir, exist_ok=True)
-    df.to_csv(os.path.join(data_dir, 'weather_forecast.csv'), index=False)
-    print("Weather forecast for Warsaw saved.")
+    print(f"Using data directory: {data_dir}")
+    
+    try:
+        os.makedirs(data_dir, exist_ok=True)
+        print(f"Directory {data_dir} created or already exists.")
+    except Exception as e:
+        print(f"Error creating directory {data_dir}: {e}")
+        raise e
+
+    save_path = os.path.join(data_dir, 'weather_forecast.csv')
+    df.to_csv(save_path, index=False)
+    print(f"Weather forecast for Warsaw saved to {save_path}.")
 
 def clean_weather_data():
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
