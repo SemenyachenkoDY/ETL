@@ -1,4 +1,4 @@
-<img width="1075" height="188" alt="image" src="https://github.com/user-attachments/assets/eddea979-314a-4eff-b3fa-928988e7d6a3" /># Проектный практикум по разработке ETL-решений: Лабораторная работа №5
+# Проектный практикум по разработке ETL-решений: Лабораторная работа №5
 
 ## Постановка задачи (Вариант 14)
 Разработать контейнеризированное ETL-решение на базе Apache Airflow для автоматизации пайплайна обработки данных со следующими требованиями:
@@ -252,8 +252,17 @@ def fetch_weather_forecast():
     )
     
     response = requests.get(url)
+    if response.status_code != 200:
+        print(f"Error fetching weather data: {response.status_code}")
+        print(f"Response text: {response.text}")
+        raise Exception(f"API request failed with status {response.status_code}")
+
     data = response.json()
     
+    if 'daily' not in data:
+        print(f"Unexpected API response structure: {data}")
+        raise KeyError("'daily' not found in API response")
+
     dates = data['daily']['time']
     temperatures = data['daily']['temperature_2m_mean']
     
@@ -262,13 +271,25 @@ def fetch_weather_forecast():
         'temperature': temperatures
     })
     
-    data_dir = '/opt/airflow/data'
-    os.makedirs(data_dir, exist_ok=True)
-    df.to_csv(os.path.join(data_dir, 'weather_forecast.csv'), index=False)
-    print("Weather forecast for Warsaw saved.")
+    # Use relative path for portability
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    data_dir = os.path.join(base_dir, 'data')
+    print(f"Using data directory: {data_dir}")
+    
+    try:
+        os.makedirs(data_dir, exist_ok=True)
+        print(f"Directory {data_dir} created or already exists.")
+    except Exception as e:
+        print(f"Error creating directory {data_dir}: {e}")
+        raise e
+
+    save_path = os.path.join(data_dir, 'weather_forecast.csv')
+    df.to_csv(save_path, index=False)
+    print(f"Weather forecast for Warsaw saved to {save_path}.")
 
 def clean_weather_data():
-    data_dir = '/opt/airflow/data'
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    data_dir = os.path.join(base_dir, 'data')
     df = pd.read_csv(os.path.join(data_dir, 'weather_forecast.csv'))
     
     df['temperature'] = df['temperature'].ffill()
@@ -285,14 +306,15 @@ def clean_weather_data():
     print("Cleaned weather data saved.")
 
 def visualize_table():
-    data_dir = '/opt/airflow/data'
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    data_dir = os.path.join(base_dir, 'data')
     df = pd.read_csv(os.path.join(data_dir, 'clean_weather.csv'))
     
     # Filter working days and group by weekday to get average
     working_days = df[df['is_working_day'] == True]
     grouped = working_days.groupby('день недели')['temperature'].mean().reset_index()
-    grouped.rename(columns={'день недели': 'День недели', 'temperature': 'Средняя температура, °C'}, inplace=True)
-    grouped['Средняя температура, °C'] = grouped['Средняя температура, °C'].round(2)
+    grouped.rename(columns={'день недели': 'День недели', 'temperature': 'Средняя температура'}, inplace=True)
+    grouped['Средняя температура'] = grouped['Средняя температура'].round(2)
     
     # Optional: Save grouped data to CSV
     grouped.to_csv(os.path.join(data_dir, 'grouped_weather.csv'), index=False)
@@ -315,7 +337,8 @@ def visualize_table():
     print("Visualization saved securely.")
 
 def fetch_sales_data():
-    data_dir = '/opt/airflow/data'
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    data_dir = os.path.join(base_dir, 'data')
     weather_df = pd.read_csv(os.path.join(data_dir, 'clean_weather.csv'))
     dates = weather_df['date'].tolist()
     
@@ -326,13 +349,15 @@ def fetch_sales_data():
     print("Sales data saved.")
 
 def clean_sales_data():
-    data_dir = '/opt/airflow/data'
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    data_dir = os.path.join(base_dir, 'data')
     df = pd.read_csv(os.path.join(data_dir, 'sales_data.csv'))
     df['sales'] = df['sales'].ffill()
     df.to_csv(os.path.join(data_dir, 'clean_sales.csv'), index=False)
 
 def join_datasets():
-    data_dir = '/opt/airflow/data'
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    data_dir = os.path.join(base_dir, 'data')
     weather_df = pd.read_csv(os.path.join(data_dir, 'clean_weather.csv'))
     sales_df = pd.read_csv(os.path.join(data_dir, 'clean_sales.csv'))
     
@@ -340,7 +365,8 @@ def join_datasets():
     joined_df.to_csv(os.path.join(data_dir, 'joined_data.csv'), index=False)
 
 def train_ml_model():
-    data_dir = '/opt/airflow/data'
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    data_dir = os.path.join(base_dir, 'data')
     df = pd.read_csv(os.path.join(data_dir, 'joined_data.csv'))
     
     X = df[['temperature']]
@@ -352,7 +378,8 @@ def train_ml_model():
     joblib.dump(model, os.path.join(data_dir, 'ml_model.pkl'))
 
 def deploy_ml_model():
-    data_dir = '/opt/airflow/data'
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    data_dir = os.path.join(base_dir, 'data')
     model = joblib.load(os.path.join(data_dir, 'ml_model.pkl'))
     print("Model deployed successfully:", model)
 
@@ -366,7 +393,7 @@ t6 = PythonOperator(task_id="train_ml_model", python_callable=train_ml_model, da
 t7 = PythonOperator(task_id="deploy_ml_model", python_callable=deploy_ml_model, dag=dag)
 
 t1 >> t2 >> t_vis
-t3 >> t4
+t2 >> t3 >> t4
 [t2, t4] >> t5
 t5 >> t6 >> t7
 ```
@@ -382,7 +409,9 @@ import os
 st.set_page_config(page_title="Прогноз погоды Варшава", layout="wide")
 st.title("Анализ погоды в Варшаве на 5 дней (Вариант 14)")
 
-data_path = '/opt/airflow/data/clean_weather.csv'
+# Use relative path for portability
+base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+data_path = os.path.join(base_dir, 'data', 'clean_weather.csv')
 
 if os.path.exists(data_path):
     df = pd.read_csv(data_path)
