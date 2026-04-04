@@ -11,5 +11,6 @@ USER airflow
 # Устанавливаем необходимые Python-библиотеки для ETL, ML и Streamlit
 RUN pip install --no-cache-dir \
     pandas scikit-learn joblib requests streamlit \
-    torch torchvision transformers Pillow plotly psycopg2-binary \
-    jupyter
+    transformers Pillow plotly psycopg2-binary \
+    jupyter && \
+    pip install --no-cache-dir torch torchvision --index-url https://download.pytorch.org/whl/cpu
