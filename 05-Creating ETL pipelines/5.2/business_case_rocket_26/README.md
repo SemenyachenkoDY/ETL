@@ -105,7 +105,10 @@ sudo chmod -R 775 data logs
 ```bash
 # Сборка кастомного образа с ML и Streamlit
 sudo docker build -t custom-airflow:slim-2.8.1-python3.11 .
+<img width="1916" height="958" alt="image" src="https://github.com/user-attachments/assets/3641221b-a568-4ca6-bded-428dbfce6ab3" />
+```
 
+```
 # stop containers
 sudo docker stop $(sudo docker ps -q)
 sudo docker network prune -f
@@ -116,6 +119,7 @@ sudo chmod 755 .
 # Запуск инфраструктуры в фоновом режиме
 sudo docker compose up -d
 ```
+<img width="1270" height="298" alt="image" src="https://github.com/user-attachments/assets/c1f8f99e-ac2e-42dd-9d76-e8ac551d8e9c" />
 
 ### 3. Выполнение ETL (Airflow)
 1. Откройте браузер по адресу: `http://localhost:8080`
@@ -214,19 +218,18 @@ flowchart TD
 - В `default_args` DAG добавлены параметры глобальных retries (`retries: 3`, `retry_delay: 1 minute`). В таске `download_launches` эти параметры явно переопределены (`retries: 5`, `retry_delay: 30 seconds`) для более гибкого обхода нестабильного сетевого подключения (Задания 2 и 3).
 
 ### 4. Результаты
-*(Вставьте скриншоты ниже после успешного выполнения пайплайна локально)*
 
 **Скриншот графа DAG (Graph View) из Airflow:**
-*(Вставьте скриншот здесь)*
+<img width="1919" height="957" alt="image" src="https://github.com/user-attachments/assets/679c0ee7-8e0f-42fc-b6bc-f4e18f6d38b3" />
 
 **Скриншот диаграммы Ганта:**
-*(Вставьте скриншот здесь)*
+<img width="1919" height="959" alt="image" src="https://github.com/user-attachments/assets/9e2b108a-f026-4718-baf6-797e5558eb10" />
 
 **Скриншот лог-файла (Logs) успешного выполнения:**
-*(Вставьте скриншот здесь)*
+<img width="1919" height="959" alt="image" src="https://github.com/user-attachments/assets/bacb4485-a894-4f2e-8f5d-e60b7f6e04a1" />
 
 **Скрин аналитики в Streamlit:**
-*(Вставьте скриншот здесь)*
+<img width="1919" height="964" alt="image" src="https://github.com/user-attachments/assets/005d1612-23e3-4d14-b839-68e325e176dc" />
 
 ### 5. Анализ задачи ML и Выводы
 **Анализ задачи ML**: Модель CLIP (Zero-Shot Classification) успешно классифицирует скачанные изображения ракет без необходимости дополнительного обучения на пользовательском наборе данных, сопоставляя изображения с заранее заданными текстовыми метками (классами).

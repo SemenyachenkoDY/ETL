@@ -46,6 +46,46 @@ graph TD
     BROWSER -->|Views Dashboard| STR
 ```
 
+Вернхеуровневая архитектура
+```mermaid
+graph TD
+    %% Определение стилей
+    classDef source fill:#e1f5fe,stroke:#01579b,stroke-width:2px,color:#01579b;
+    classDef storage fill:#fff3e0,stroke:#e65100,stroke-width:2px,color:#e65100;
+    classDef process fill:#f3e5f5,stroke:#4a148c,stroke-width:2px,color:#4a148c;
+    classDef business fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px,color:#1b5e20;
+
+    subgraph SL ["🌐 Source Layer (Источники)"]
+        API["☁️ Open-Meteo API<br/>(Погода)"]:::source
+        SIM["📊 Sales Simulation<br/>(Скрипт генерации)"]:::source
+    end
+
+    subgraph PL ["⚙️ Processing Layer (Оркестрация)"]
+        AF["🚀 Airflow DAG<br/>'variant_14_warsaw'"]:::process
+    end
+
+    subgraph ST ["💾 Storage Layer (Хранение)"]
+        CSV["📄 Data Lake<br/>(CSV-файлы)"]:::storage
+        MOD["🤖 ML Registry<br/>(ml_model.pkl)"]:::storage
+        IMG["🖼️ Reports<br/>(PNG-отчеты)"]:::storage
+    end
+
+    subgraph BL ["📈 Business Layer (Потребители)"]
+        BI["🖥️ BI Dashboard<br/>(Streamlit)"]:::business
+        NB["📓 Data Research<br/>(Jupyter Notebook)"]:::business
+    end
+
+    %% Потоки данных
+    SL -->|Ingestion| AF
+    AF -->|Extraction| CSV
+    AF -->|Model Training| MOD
+    AF -->|Reporting| IMG
+    
+    CSV -->|Analytics| BL
+    MOD -->|Inference| BL
+    IMG -->|Visualization| BI
+```
+
 ## Технический стек
 * **Оркестрация:** Apache Airflow 2.8.1
 * **Контейнеризация:** Docker, Docker Compose
@@ -252,8 +292,17 @@ def fetch_weather_forecast():
     )
     
     response = requests.get(url)
+    if response.status_code != 200:
+        print(f"Error fetching weather data: {response.status_code}")
+        print(f"Response text: {response.text}")
+        raise Exception(f"API request failed with status {response.status_code}")
+
     data = response.json()
     
+    if 'daily' not in data:
+        print(f"Unexpected API response structure: {data}")
+        raise KeyError("'daily' not found in API response")
+
     dates = data['daily']['time']
     temperatures = data['daily']['temperature_2m_mean']
     
@@ -262,13 +311,25 @@ def fetch_weather_forecast():
         'temperature': temperatures
     })
     
-    data_dir = '/opt/airflow/data'
-    os.makedirs(data_dir, exist_ok=True)
-    df.to_csv(os.path.join(data_dir, 'weather_forecast.csv'), index=False)
-    print("Weather forecast for Warsaw saved.")
+    # Use relative path for portability
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    data_dir = os.path.join(base_dir, 'data')
+    print(f"Using data directory: {data_dir}")
+    
+    try:
+        os.makedirs(data_dir, exist_ok=True)
+        print(f"Directory {data_dir} created or already exists.")
+    except Exception as e:
+        print(f"Error creating directory {data_dir}: {e}")
+        raise e
+
+    save_path = os.path.join(data_dir, 'weather_forecast.csv')
+    df.to_csv(save_path, index=False)
+    print(f"Weather forecast for Warsaw saved to {save_path}.")
 
 def clean_weather_data():
-    data_dir = '/opt/airflow/data'
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    data_dir = os.path.join(base_dir, 'data')
     df = pd.read_csv(os.path.join(data_dir, 'weather_forecast.csv'))
     
     df['temperature'] = df['temperature'].ffill()
@@ -285,14 +346,15 @@ def clean_weather_data():
     print("Cleaned weather data saved.")
 
 def visualize_table():
-    data_dir = '/opt/airflow/data'
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    data_dir = os.path.join(base_dir, 'data')
     df = pd.read_csv(os.path.join(data_dir, 'clean_weather.csv'))
     
     # Filter working days and group by weekday to get average
     working_days = df[df['is_working_day'] == True]
     grouped = working_days.groupby('день недели')['temperature'].mean().reset_index()
-    grouped.rename(columns={'день недели': 'День недели', 'temperature': 'Средняя температура, °C'}, inplace=True)
-    grouped['Средняя температура, °C'] = grouped['Средняя температура, °C'].round(2)
+    grouped.rename(columns={'день недели': 'День недели', 'temperature': 'Средняя температура'}, inplace=True)
+    grouped['Средняя температура'] = grouped['Средняя температура'].round(2)
     
     # Optional: Save grouped data to CSV
     grouped.to_csv(os.path.join(data_dir, 'grouped_weather.csv'), index=False)
@@ -315,7 +377,8 @@ def visualize_table():
     print("Visualization saved securely.")
 
 def fetch_sales_data():
-    data_dir = '/opt/airflow/data'
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    data_dir = os.path.join(base_dir, 'data')
     weather_df = pd.read_csv(os.path.join(data_dir, 'clean_weather.csv'))
     dates = weather_df['date'].tolist()
     
@@ -326,13 +389,15 @@ def fetch_sales_data():
     print("Sales data saved.")
 
 def clean_sales_data():
-    data_dir = '/opt/airflow/data'
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    data_dir = os.path.join(base_dir, 'data')
     df = pd.read_csv(os.path.join(data_dir, 'sales_data.csv'))
     df['sales'] = df['sales'].ffill()
     df.to_csv(os.path.join(data_dir, 'clean_sales.csv'), index=False)
 
 def join_datasets():
-    data_dir = '/opt/airflow/data'
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    data_dir = os.path.join(base_dir, 'data')
     weather_df = pd.read_csv(os.path.join(data_dir, 'clean_weather.csv'))
     sales_df = pd.read_csv(os.path.join(data_dir, 'clean_sales.csv'))
     
@@ -340,7 +405,8 @@ def join_datasets():
     joined_df.to_csv(os.path.join(data_dir, 'joined_data.csv'), index=False)
 
 def train_ml_model():
-    data_dir = '/opt/airflow/data'
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    data_dir = os.path.join(base_dir, 'data')
     df = pd.read_csv(os.path.join(data_dir, 'joined_data.csv'))
     
     X = df[['temperature']]
@@ -352,7 +418,8 @@ def train_ml_model():
     joblib.dump(model, os.path.join(data_dir, 'ml_model.pkl'))
 
 def deploy_ml_model():
-    data_dir = '/opt/airflow/data'
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    data_dir = os.path.join(base_dir, 'data')
     model = joblib.load(os.path.join(data_dir, 'ml_model.pkl'))
     print("Model deployed successfully:", model)
 
@@ -366,7 +433,7 @@ t6 = PythonOperator(task_id="train_ml_model", python_callable=train_ml_model, da
 t7 = PythonOperator(task_id="deploy_ml_model", python_callable=deploy_ml_model, dag=dag)
 
 t1 >> t2 >> t_vis
-t3 >> t4
+t2 >> t3 >> t4
 [t2, t4] >> t5
 t5 >> t6 >> t7
 ```
@@ -382,7 +449,9 @@ import os
 st.set_page_config(page_title="Прогноз погоды Варшава", layout="wide")
 st.title("Анализ погоды в Варшаве на 5 дней (Вариант 14)")
 
-data_path = '/opt/airflow/data/clean_weather.csv'
+# Use relative path for portability
+base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+data_path = os.path.join(base_dir, 'data', 'clean_weather.csv')
 
 if os.path.exists(data_path):
     df = pd.read_csv(data_path)
@@ -437,18 +506,22 @@ sudo chown -R dev:dev /home/dev/Downloads/practice/business_case_umbrella_25
 ```bash
 docker build -t custom-airflow:slim-2.8.1-python3.11 .
 ```
+<img width="1919" height="1011" alt="image" src="https://github.com/user-attachments/assets/cabbfa71-b5c0-4ffd-bac7-b32138a1f79a" />
 
 ### Запуск проекта
 После того как образ успешно собран, запустите всю инфраструктуру (PostgreSQL, Airflow Init, Webserver, Scheduler и Streamlit) в фоновом режиме:
 ```bash
 docker compose up -d
 ```
+<img width="1075" height="188" alt="image" src="https://github.com/user-attachments/assets/9869e841-b601-4fec-bf30-78f72085debd" />
 
 ### Проверка запущенных контейнеров
 Убедитесь, что инфраструктура поднялась без ошибок. Для вывода списка активных контейнеров и их статусов используйте команду:
 ```bash
 docker ps
 ```
+<img width="1919" height="1007" alt="image" src="https://github.com/user-attachments/assets/9976f40d-c049-4bbe-850a-8047c4e78128" />
+
 *(Вы должны увидеть контейнеры с именами, содержащими `postgres`, `webserver`, `scheduler`, `streamlit`. Контейнер `init` завершит работу после настройки БД).*
 
 ### Просмотр логов
@@ -461,6 +534,8 @@ docker compose logs -f
 ```bash
 docker compose logs init
 ```
+<img width="1919" height="989" alt="image" src="https://github.com/user-attachments/assets/76691a53-cadd-428b-a18d-478d121445bf" />
+
 *(Для выхода из режима потокового чтения логов нажмите `Ctrl+C`)*.
 
 ### Выполнение DAG и получение визуализации
@@ -469,9 +544,16 @@ docker compose logs init
    * Авторизуйтесь (логин: `admin`, пароль: `admin`).
    * Найдите ваш DAG в списке, снимите его с паузы (переключатель слева) и запустите вручную, нажав кнопку **Play (▶)** ➜ **Trigger DAG**.
    * Дождитесь успешного выполнения всех задач (статус поменяется на темно-зеленый "Success"). Данные скачаются, обработаются и сохранится модель.
+   <img width="1848" height="956" alt="image" src="https://github.com/user-attachments/assets/55d2c1ee-ff1f-4906-83d5-8fb07168fc11" />
+
 2. **Просмотр визуализации (Streamlit):**
    * Перейдите по адресу [http://localhost:8501](http://localhost:8501).
    * На открывшемся дашборде вы увидите очищенную таблицу данных и итоговую таблицу средних температур по рабочим дням.
+<img width="1847" height="951" alt="image" src="https://github.com/user-attachments/assets/b4a194d1-f5f0-45e4-8a87-1f25e2cce0a0" />
+
+
+3. Прогноз продаж
+<img width="1749" height="478" alt="image" src="https://github.com/user-attachments/assets/6fbd810f-a757-4536-93f9-2d192aed3e57" />
 
 ### Выключение проекта и полная очистка ресурсов
 После успешного завершения работы необходимо остановить сервисы, удалить контейнеры, очистить сеть, тома данных (volumes) и собранные образы.
@@ -480,10 +562,14 @@ docker compose logs init
 ```bash
 docker compose down -v
 ```
+<img width="1916" height="1003" alt="image" src="https://github.com/user-attachments/assets/2a675a27-a2cf-45b7-9a8e-9ad65bccd6f5" />
+
 2. Удаление кастомного Docker-образа Airflow:
 ```bash
 docker rmi custom-airflow:slim-2.8.1-python3.11
 ```
+<img width="1919" height="1010" alt="image" src="https://github.com/user-attachments/assets/a317da29-347e-4e53-b1ce-a7e5027daa9f" />
+
 3. *(Опционально)* Очистка системы от зависших ("dangling") сетей и слоёв кэша сборки:
 ```bash
 docker network prune -f
@@ -493,3 +579,5 @@ docker image prune -f
 ```bash
 rm -rf data/*
 ```
+<img width="1919" height="1003" alt="image" src="https://github.com/user-attachments/assets/9d269c83-800d-43a3-80b2-87f83463405a" />
+
