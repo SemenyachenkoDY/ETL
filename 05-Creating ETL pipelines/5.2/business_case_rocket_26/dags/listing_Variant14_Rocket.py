@@ -13,10 +13,11 @@ import csv
 
 DATA_DIR = "/opt/airflow/data"
 IMAGES_DIR = f"{DATA_DIR}/images"
-TMP_JSON_FILE = "/tmp/launches.json"
+# Путь для сохранения JSON в общей директории (чтобы Streamlit видел файл)
+TMP_JSON_FILE = f"{DATA_DIR}/launches.json"
 STAGES_CSV_FILE = f"{DATA_DIR}/loading_stages.csv"
 MAX_IMAGES = 10
-API_URL = f"https://ll.thespacedevs.com/2.3.0/launches/upcoming/?format=json&mode=list&limit={MAX_IMAGES}"
+API_URL = f"https://lldev.thespacedevs.com/2.3.0/launches/upcoming/?format=json&limit={MAX_IMAGES}"
 
 # --- Настройка Retries (Задание 2 и 3) ---
 # Настраиваем параметры retries для всего DAG и отдельных задач для обхода ошибок сети
@@ -50,12 +51,14 @@ clean_data_directory = BashOperator(
 # Переопределяем retries для этой задачи (Задание 3)
 download_launches = BashOperator(
     task_id="download_launches",
+    # Используем .tmp файл и атомарный mv, чтобы другие сервисы (Streamlit) не читали недописанный файл.
     bash_command=(
         f"curl -fSL --connect-timeout 15 --max-time 120 --progress-bar "
-        f"-H 'Accept: application/json' -o {TMP_JSON_FILE} '{API_URL}'"
+        f"-H 'Accept: application/json' -o {TMP_JSON_FILE}.tmp '{API_URL}' && "
+        f"mv {TMP_JSON_FILE}.tmp {TMP_JSON_FILE}"
     ),
     retries=5, # Увеличиваем кол-во попыток до 5, т.к. сеть может быть нестабильна
-    retry_delay=timedelta(seconds=30),
+    retry_delay=timedelta(seconds=60),
     dag=dag,
 )
 

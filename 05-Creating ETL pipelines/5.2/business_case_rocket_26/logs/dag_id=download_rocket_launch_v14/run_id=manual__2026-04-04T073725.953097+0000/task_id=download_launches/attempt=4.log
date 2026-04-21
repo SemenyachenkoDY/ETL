@@ -1,0 +1,27 @@
+[2026-04-04T07:44:59.950+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: download_rocket_launch_v14.download_launches manual__2026-04-04T07:37:25.953097+00:00 [queued]>
+[2026-04-04T07:44:59.956+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: download_rocket_launch_v14.download_launches manual__2026-04-04T07:37:25.953097+00:00 [queued]>
+[2026-04-04T07:44:59.956+0000] {taskinstance.py:2170} INFO - Starting attempt 4 of 6
+[2026-04-04T07:44:59.966+0000] {taskinstance.py:2191} INFO - Executing <Task(BashOperator): download_launches> on 2026-04-04 07:37:25.953097+00:00
+[2026-04-04T07:44:59.972+0000] {standard_task_runner.py:60} INFO - Started process 799 to run task
+[2026-04-04T07:44:59.975+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'download_rocket_launch_v14', 'download_launches', 'manual__2026-04-04T07:37:25.953097+00:00', '--job-id', '31', '--raw', '--subdir', 'DAGS_FOLDER/listing_Variant14_Rocket.py', '--cfg-path', '/tmp/tmp7psbv2wg']
+[2026-04-04T07:44:59.978+0000] {standard_task_runner.py:88} INFO - Job 31: Subtask download_launches
+[2026-04-04T07:45:00.032+0000] {task_command.py:423} INFO - Running <TaskInstance: download_rocket_launch_v14.download_launches manual__2026-04-04T07:37:25.953097+00:00 [running]> on host 8fad73635163
+[2026-04-04T07:45:00.087+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='download_rocket_launch_v14' AIRFLOW_CTX_TASK_ID='download_launches' AIRFLOW_CTX_EXECUTION_DATE='2026-04-04T07:37:25.953097+00:00' AIRFLOW_CTX_TRY_NUMBER='4' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-04-04T07:37:25.953097+00:00'
+[2026-04-04T07:45:00.089+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2026-04-04T07:45:00.090+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', "curl -fSL --connect-timeout 15 --max-time 120 --progress-bar -H 'Accept: application/json' -o /opt/***/data/launches.json.tmp 'https://ll.thespacedevs.com/2.3.0/launches/upcoming/?format=json&limit=10' && mv /opt/***/data/launches.json.tmp /opt/***/data/launches.json"]
+[2026-04-04T07:45:00.096+0000] {subprocess.py:86} INFO - Output:
+[2026-04-04T07:47:00.103+0000] {subprocess.py:93} INFO - #=#=#                                                                         ##############                                                            20.7%curl: (28) Operation timed out after 120001 milliseconds with 22467 out of 108415 bytes received
+[2026-04-04T07:47:00.105+0000] {subprocess.py:93} INFO - 
+[2026-04-04T07:47:00.111+0000] {subprocess.py:97} INFO - Command exited with return code 28
+[2026-04-04T07:47:00.127+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/operators/bash.py", line 212, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 28.
+[2026-04-04T07:47:00.131+0000] {taskinstance.py:1138} INFO - Marking task as UP_FOR_RETRY. dag_id=download_rocket_launch_v14, task_id=download_launches, execution_date=20260404T073725, start_date=20260404T074459, end_date=20260404T074700
+[2026-04-04T07:47:00.142+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 31 for task download_launches (Bash command failed. The command returned a non-zero exit code 28.; 799)
+[2026-04-04T07:47:00.147+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2026-04-04T07:47:00.165+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check

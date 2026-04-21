@@ -1,0 +1,29 @@
+[2026-04-04T07:21:20.841+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: download_rocket_launch_v14.get_pictures scheduled__2026-04-03T00:00:00+00:00 [queued]>
+[2026-04-04T07:21:20.848+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: download_rocket_launch_v14.get_pictures scheduled__2026-04-03T00:00:00+00:00 [queued]>
+[2026-04-04T07:21:20.852+0000] {taskinstance.py:2170} INFO - Starting attempt 2 of 4
+[2026-04-04T07:21:20.891+0000] {taskinstance.py:2191} INFO - Executing <Task(PythonOperator): get_pictures> on 2026-04-03 00:00:00+00:00
+[2026-04-04T07:21:20.895+0000] {standard_task_runner.py:60} INFO - Started process 236 to run task
+[2026-04-04T07:21:20.898+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'download_rocket_launch_v14', 'get_pictures', 'scheduled__2026-04-03T00:00:00+00:00', '--job-id', '10', '--raw', '--subdir', 'DAGS_FOLDER/listing_Variant14_Rocket.py', '--cfg-path', '/tmp/tmp32ruy71o']
+[2026-04-04T07:21:20.900+0000] {standard_task_runner.py:88} INFO - Job 10: Subtask get_pictures
+[2026-04-04T07:21:20.952+0000] {task_command.py:423} INFO - Running <TaskInstance: download_rocket_launch_v14.get_pictures scheduled__2026-04-03T00:00:00+00:00 [running]> on host 8fad73635163
+[2026-04-04T07:21:21.014+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='download_rocket_launch_v14' AIRFLOW_CTX_TASK_ID='get_pictures' AIRFLOW_CTX_EXECUTION_DATE='2026-04-03T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-04-03T00:00:00+00:00'
+[2026-04-04T07:21:21.016+0000] {logging_mixin.py:188} INFO - [1/8] Downloading: https://thespacedevs-prod.nyc3.digitaloceanspaces.com/media/images/atlas2520v2520551_image_20190224012316.jpeg
+[2026-04-04T07:21:21.901+0000] {logging_mixin.py:188} INFO - Downloaded https://thespacedevs-prod.nyc3.digitaloceanspaces.com/media/images/atlas2520v2520551_image_20190224012316.jpeg to /opt/***/data/images/atlas2520v2520551_image_20190224012316.jpeg
+[2026-04-04T07:21:21.902+0000] {logging_mixin.py:188} INFO - [2/8] Downloading: https://thespacedevs-prod.nyc3.digitaloceanspaces.com/media/images/falcon2520925_image_20221009234147.png
+[2026-04-04T07:21:22.723+0000] {logging_mixin.py:188} INFO - Downloaded https://thespacedevs-prod.nyc3.digitaloceanspaces.com/media/images/falcon2520925_image_20221009234147.png to /opt/***/data/images/falcon2520925_image_20221009234147.png
+[2026-04-04T07:21:22.723+0000] {logging_mixin.py:188} INFO - [3/8] Downloading: https://thespacedevs-prod.nyc3.digitaloceanspaces.com/media/images/minotaur_iv_lau_image_20240307170209.jpeg
+[2026-04-04T07:21:23.503+0000] {logging_mixin.py:188} INFO - Downloaded https://thespacedevs-prod.nyc3.digitaloceanspaces.com/media/images/minotaur_iv_lau_image_20240307170209.jpeg to /opt/***/data/images/minotaur_iv_lau_image_20240307170209.jpeg
+[2026-04-04T07:21:23.504+0000] {logging_mixin.py:188} INFO - [4/8] Downloading: https://thespacedevs-prod.nyc3.digitaloceanspaces.com/media/images/cz-8_liftoff_2_image_20240315183218.jpg
+[2026-04-04T07:21:24.329+0000] {logging_mixin.py:188} INFO - Downloaded https://thespacedevs-prod.nyc3.digitaloceanspaces.com/media/images/cz-8_liftoff_2_image_20240315183218.jpg to /opt/***/data/images/cz-8_liftoff_2_image_20240315183218.jpg
+[2026-04-04T07:21:24.330+0000] {logging_mixin.py:188} INFO - [5/8] Downloading: https://thespacedevs-prod.nyc3.digitaloceanspaces.com/media/images/falcon_9_image_20230807133459.jpeg
+[2026-04-04T07:21:25.187+0000] {logging_mixin.py:188} INFO - Downloaded https://thespacedevs-prod.nyc3.digitaloceanspaces.com/media/images/falcon_9_image_20230807133459.jpeg to /opt/***/data/images/falcon_9_image_20230807133459.jpeg
+[2026-04-04T07:21:25.187+0000] {logging_mixin.py:188} INFO - [6/8] Downloading: https://thespacedevs-prod.nyc3.digitaloceanspaces.com/media/images/long_march_6a__image_20251209050223.jpeg
+[2026-04-04T07:21:25.948+0000] {logging_mixin.py:188} INFO - Downloaded https://thespacedevs-prod.nyc3.digitaloceanspaces.com/media/images/long_march_6a__image_20251209050223.jpeg to /opt/***/data/images/long_march_6a__image_20251209050223.jpeg
+[2026-04-04T07:21:25.949+0000] {logging_mixin.py:188} INFO - [7/8] Downloading: https://thespacedevs-prod.nyc3.digitaloceanspaces.com/media/images/vega-c_image_20220713154437.jpg
+[2026-04-04T07:21:26.893+0000] {logging_mixin.py:188} INFO - Downloaded https://thespacedevs-prod.nyc3.digitaloceanspaces.com/media/images/vega-c_image_20220713154437.jpg to /opt/***/data/images/vega-c_image_20220713154437.jpg
+[2026-04-04T07:21:26.895+0000] {logging_mixin.py:188} INFO - [8/8] Downloading: https://thespacedevs-prod.nyc3.digitaloceanspaces.com/media/images/smart_dragon_3__image_20240925074606.jpg
+[2026-04-04T07:21:27.848+0000] {logging_mixin.py:188} INFO - Downloaded https://thespacedevs-prod.nyc3.digitaloceanspaces.com/media/images/smart_dragon_3__image_20240925074606.jpg to /opt/***/data/images/smart_dragon_3__image_20240925074606.jpg
+[2026-04-04T07:21:27.850+0000] {python.py:201} INFO - Done. Returned value was: None
+[2026-04-04T07:21:27.861+0000] {taskinstance.py:1138} INFO - Marking task as SUCCESS. dag_id=download_rocket_launch_v14, task_id=get_pictures, execution_date=20260403T000000, start_date=20260404T072120, end_date=20260404T072127
+[2026-04-04T07:21:27.898+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2026-04-04T07:21:27.917+0000] {taskinstance.py:3280} INFO - 1 downstream tasks scheduled from follow-on schedule check

@@ -1,0 +1,20 @@
+[2026-04-04T07:46:16.587+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: download_rocket_launch_v14.download_launches manual__2026-04-04T07:38:41.133469+00:00 [queued]>
+[2026-04-04T07:46:16.594+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: download_rocket_launch_v14.download_launches manual__2026-04-04T07:38:41.133469+00:00 [queued]>
+[2026-04-04T07:46:16.595+0000] {taskinstance.py:2170} INFO - Starting attempt 4 of 6
+[2026-04-04T07:46:16.603+0000] {taskinstance.py:2191} INFO - Executing <Task(BashOperator): download_launches> on 2026-04-04 07:38:41.133469+00:00
+[2026-04-04T07:46:16.606+0000] {standard_task_runner.py:60} INFO - Started process 824 to run task
+[2026-04-04T07:46:16.608+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'download_rocket_launch_v14', 'download_launches', 'manual__2026-04-04T07:38:41.133469+00:00', '--job-id', '32', '--raw', '--subdir', 'DAGS_FOLDER/listing_Variant14_Rocket.py', '--cfg-path', '/tmp/tmpdj9q3ipb']
+[2026-04-04T07:46:16.610+0000] {standard_task_runner.py:88} INFO - Job 32: Subtask download_launches
+[2026-04-04T07:46:16.654+0000] {task_command.py:423} INFO - Running <TaskInstance: download_rocket_launch_v14.download_launches manual__2026-04-04T07:38:41.133469+00:00 [running]> on host 8fad73635163
+[2026-04-04T07:46:16.713+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='download_rocket_launch_v14' AIRFLOW_CTX_TASK_ID='download_launches' AIRFLOW_CTX_EXECUTION_DATE='2026-04-04T07:38:41.133469+00:00' AIRFLOW_CTX_TRY_NUMBER='4' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-04-04T07:38:41.133469+00:00'
+[2026-04-04T07:46:16.714+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2026-04-04T07:46:16.715+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', "curl -fSL --connect-timeout 15 --max-time 120 --progress-bar -H 'Accept: application/json' -o /opt/***/data/launches.json.tmp 'https://ll.thespacedevs.com/2.3.0/launches/upcoming/?format=json&limit=10' && mv /opt/***/data/launches.json.tmp /opt/***/data/launches.json"]
+[2026-04-04T07:46:16.721+0000] {subprocess.py:86} INFO - Output:
+[2026-04-04T07:47:17.179+0000] {local_task_job_runner.py:302} WARNING - State of this instance has been externally set to success. Terminating instance.
+[2026-04-04T07:47:17.187+0000] {process_utils.py:131} INFO - Sending 15 to group 824. PIDs of all processes in the group: [825, 826, 824]
+[2026-04-04T07:47:17.188+0000] {process_utils.py:86} INFO - Sending the signal 15 to group 824
+[2026-04-04T07:47:17.188+0000] {taskinstance.py:2450} ERROR - Received SIGTERM. Terminating subprocesses.
+[2026-04-04T07:47:17.189+0000] {subprocess.py:104} INFO - Sending SIGTERM signal to process group
+[2026-04-04T07:47:17.196+0000] {process_utils.py:79} INFO - Process psutil.Process(pid=826, status='terminated', started='07:46:16') (826) terminated with exit code None
+[2026-04-04T07:47:17.223+0000] {process_utils.py:79} INFO - Process psutil.Process(pid=824, status='terminated', exitcode=0, started='07:46:16') (824) terminated with exit code 0
+[2026-04-04T07:47:17.224+0000] {process_utils.py:79} INFO - Process psutil.Process(pid=825, status='terminated', started='07:46:16') (825) terminated with exit code None

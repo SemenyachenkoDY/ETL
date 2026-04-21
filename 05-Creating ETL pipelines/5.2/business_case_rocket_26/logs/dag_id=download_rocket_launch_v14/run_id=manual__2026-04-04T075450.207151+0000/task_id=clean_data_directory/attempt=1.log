@@ -1,0 +1,16 @@
+[2026-04-04T07:54:50.700+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: download_rocket_launch_v14.clean_data_directory manual__2026-04-04T07:54:50.207151+00:00 [queued]>
+[2026-04-04T07:54:50.705+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: download_rocket_launch_v14.clean_data_directory manual__2026-04-04T07:54:50.207151+00:00 [queued]>
+[2026-04-04T07:54:50.706+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 4
+[2026-04-04T07:54:50.719+0000] {taskinstance.py:2191} INFO - Executing <Task(BashOperator): clean_data_directory> on 2026-04-04 07:54:50.207151+00:00
+[2026-04-04T07:54:50.722+0000] {standard_task_runner.py:60} INFO - Started process 1048 to run task
+[2026-04-04T07:54:50.724+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'download_rocket_launch_v14', 'clean_data_directory', 'manual__2026-04-04T07:54:50.207151+00:00', '--job-id', '46', '--raw', '--subdir', 'DAGS_FOLDER/listing_Variant14_Rocket.py', '--cfg-path', '/tmp/tmps1v5alx7']
+[2026-04-04T07:54:50.726+0000] {standard_task_runner.py:88} INFO - Job 46: Subtask clean_data_directory
+[2026-04-04T07:54:50.795+0000] {task_command.py:423} INFO - Running <TaskInstance: download_rocket_launch_v14.clean_data_directory manual__2026-04-04T07:54:50.207151+00:00 [running]> on host 8fad73635163
+[2026-04-04T07:54:50.860+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='download_rocket_launch_v14' AIRFLOW_CTX_TASK_ID='clean_data_directory' AIRFLOW_CTX_EXECUTION_DATE='2026-04-04T07:54:50.207151+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-04-04T07:54:50.207151+00:00'
+[2026-04-04T07:54:50.861+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2026-04-04T07:54:50.863+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', 'mkdir -p /opt/***/data && rm -rf /opt/***/data/*']
+[2026-04-04T07:54:50.870+0000] {subprocess.py:86} INFO - Output:
+[2026-04-04T07:54:50.886+0000] {subprocess.py:97} INFO - Command exited with return code 0
+[2026-04-04T07:54:50.906+0000] {taskinstance.py:1138} INFO - Marking task as SUCCESS. dag_id=download_rocket_launch_v14, task_id=clean_data_directory, execution_date=20260404T075450, start_date=20260404T075450, end_date=20260404T075450
+[2026-04-04T07:54:50.937+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2026-04-04T07:54:50.957+0000] {taskinstance.py:3280} INFO - 1 downstream tasks scheduled from follow-on schedule check

@@ -1,0 +1,17 @@
+[2026-04-04T07:48:05.072+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: download_rocket_launch_v14.notify manual__2026-04-04T07:38:41.133469+00:00 [queued]>
+[2026-04-04T07:48:05.078+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: download_rocket_launch_v14.notify manual__2026-04-04T07:38:41.133469+00:00 [queued]>
+[2026-04-04T07:48:05.079+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 4
+[2026-04-04T07:48:05.088+0000] {taskinstance.py:2191} INFO - Executing <Task(BashOperator): notify> on 2026-04-04 07:38:41.133469+00:00
+[2026-04-04T07:48:05.091+0000] {standard_task_runner.py:60} INFO - Started process 875 to run task
+[2026-04-04T07:48:05.094+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'download_rocket_launch_v14', 'notify', 'manual__2026-04-04T07:38:41.133469+00:00', '--job-id', '36', '--raw', '--subdir', 'DAGS_FOLDER/listing_Variant14_Rocket.py', '--cfg-path', '/tmp/tmpeunxnk3b']
+[2026-04-04T07:48:05.096+0000] {standard_task_runner.py:88} INFO - Job 36: Subtask notify
+[2026-04-04T07:48:05.152+0000] {task_command.py:423} INFO - Running <TaskInstance: download_rocket_launch_v14.notify manual__2026-04-04T07:38:41.133469+00:00 [running]> on host 8fad73635163
+[2026-04-04T07:48:05.221+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='download_rocket_launch_v14' AIRFLOW_CTX_TASK_ID='notify' AIRFLOW_CTX_EXECUTION_DATE='2026-04-04T07:38:41.133469+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-04-04T07:38:41.133469+00:00'
+[2026-04-04T07:48:05.222+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2026-04-04T07:48:05.223+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', 'echo "There are now $(ls /opt/***/data/images/ | wc -l) images in /opt/***/data/images and stages table in /opt/***/data/loading_stages.csv."']
+[2026-04-04T07:48:05.230+0000] {subprocess.py:86} INFO - Output:
+[2026-04-04T07:48:05.237+0000] {subprocess.py:93} INFO - There are now 0 images in /opt/***/data/images and stages table in /opt/***/data/loading_stages.csv.
+[2026-04-04T07:48:05.238+0000] {subprocess.py:97} INFO - Command exited with return code 0
+[2026-04-04T07:48:05.264+0000] {taskinstance.py:1138} INFO - Marking task as SUCCESS. dag_id=download_rocket_launch_v14, task_id=notify, execution_date=20260404T073841, start_date=20260404T074805, end_date=20260404T074805
+[2026-04-04T07:48:05.307+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2026-04-04T07:48:05.319+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check

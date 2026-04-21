@@ -1,0 +1,14 @@
+[2026-04-04T07:28:01.417+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: download_rocket_launch_v14.generate_stages_table manual__2026-04-04T07:27:49.717574+00:00 [queued]>
+[2026-04-04T07:28:01.423+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: download_rocket_launch_v14.generate_stages_table manual__2026-04-04T07:27:49.717574+00:00 [queued]>
+[2026-04-04T07:28:01.424+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 4
+[2026-04-04T07:28:01.434+0000] {taskinstance.py:2191} INFO - Executing <Task(PythonOperator): generate_stages_table> on 2026-04-04 07:27:49.717574+00:00
+[2026-04-04T07:28:01.439+0000] {standard_task_runner.py:60} INFO - Started process 386 to run task
+[2026-04-04T07:28:01.441+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'download_rocket_launch_v14', 'generate_stages_table', 'manual__2026-04-04T07:27:49.717574+00:00', '--job-id', '16', '--raw', '--subdir', 'DAGS_FOLDER/listing_Variant14_Rocket.py', '--cfg-path', '/tmp/tmpnis3tt81']
+[2026-04-04T07:28:01.443+0000] {standard_task_runner.py:88} INFO - Job 16: Subtask generate_stages_table
+[2026-04-04T07:28:01.491+0000] {task_command.py:423} INFO - Running <TaskInstance: download_rocket_launch_v14.generate_stages_table manual__2026-04-04T07:27:49.717574+00:00 [running]> on host 8fad73635163
+[2026-04-04T07:28:01.545+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='download_rocket_launch_v14' AIRFLOW_CTX_TASK_ID='generate_stages_table' AIRFLOW_CTX_EXECUTION_DATE='2026-04-04T07:27:49.717574+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-04-04T07:27:49.717574+00:00'
+[2026-04-04T07:28:01.547+0000] {logging_mixin.py:188} INFO - Stages table successfully written to /opt/***/data/loading_stages.csv
+[2026-04-04T07:28:01.548+0000] {python.py:201} INFO - Done. Returned value was: None
+[2026-04-04T07:28:01.554+0000] {taskinstance.py:1138} INFO - Marking task as SUCCESS. dag_id=download_rocket_launch_v14, task_id=generate_stages_table, execution_date=20260404T072749, start_date=20260404T072801, end_date=20260404T072801
+[2026-04-04T07:28:01.574+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2026-04-04T07:28:01.588+0000] {taskinstance.py:3280} INFO - 1 downstream tasks scheduled from follow-on schedule check
