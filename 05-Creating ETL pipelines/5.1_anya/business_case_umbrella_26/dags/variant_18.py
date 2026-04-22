@@ -44,11 +44,9 @@ def fetch_weather_forecast():
         'temperature': temperatures
     })
     
-    # Искусственно добавим дубликат для демонстрации выполнения задания 2
     df = pd.concat([df, df.iloc[[0]]], ignore_index=True)
     
-    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    data_dir = os.path.join(base_dir, 'data')
+    data_dir = os.path.expanduser('~/data')
     os.makedirs(data_dir, exist_ok=True)
     
     save_path = os.path.join(data_dir, 'weather_forecast_raw.csv')
@@ -56,16 +54,14 @@ def fetch_weather_forecast():
     print(f"Raw weather forecast (with duplicates) saved to {save_path}.")
 
 def transform_weather_data():
-    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    data_dir = os.path.join(base_dir, 'data')
+    data_dir = os.path.expanduser('~/data')
+    os.makedirs(data_dir, exist_ok=True)
     df = pd.read_csv(os.path.join(data_dir, 'weather_forecast_raw.csv'))
     
-    # Задание 2: Удалить дубликаты
     initial_len = len(df)
     df = df.drop_duplicates().reset_index(drop=True)
     print(f"Removed {initial_len - len(df)} duplicates.")
     
-    # Добавление столбцов "день недели" и "is_working_day" для совместимости с дашбордом
     df['date'] = pd.to_datetime(df['date'])
     days_map = {
         0: 'Понедельник', 1: 'Вторник', 2: 'Среда', 
@@ -79,12 +75,11 @@ def transform_weather_data():
     print("Cleaned weather data (duplicates removed + weekdays added) saved.")
 
 def create_temperature_table():
-    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    data_dir = os.path.join(base_dir, 'data')
+    data_dir = os.path.expanduser('~/data')
+    os.makedirs(data_dir, exist_ok=True)
     df = pd.read_csv(os.path.join(data_dir, 'weather_forecast.csv'))
     
     # Задание 3: Таблица "Дата — Температура"
-    # Мы можем просто вывести её в лог или сохранить как отдельный файл/красивый CSV
     table_df = df[['date', 'temperature']].copy()
     table_df.columns = ['Дата', 'Температура']
     
@@ -96,8 +91,8 @@ def create_temperature_table():
     print("Table 'Date — Temperature' saved to date_temperature_table.csv.")
 
 def fetch_sales_data():
-    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    data_dir = os.path.join(base_dir, 'data')
+    data_dir = os.path.expanduser('~/data')
+    os.makedirs(data_dir, exist_ok=True)
     weather_df = pd.read_csv(os.path.join(data_dir, 'weather_forecast.csv'))
     dates = weather_df['date'].tolist()
     
@@ -108,8 +103,8 @@ def fetch_sales_data():
     df.to_csv(os.path.join(data_dir, 'sales_data.csv'), index=False)
 
 def join_datasets():
-    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    data_dir = os.path.join(base_dir, 'data')
+    data_dir = os.path.expanduser('~/data')
+    os.makedirs(data_dir, exist_ok=True)
     weather_df = pd.read_csv(os.path.join(data_dir, 'weather_forecast.csv'))
     sales_df = pd.read_csv(os.path.join(data_dir, 'sales_data.csv'))
     
@@ -117,8 +112,8 @@ def join_datasets():
     joined_df.to_csv(os.path.join(data_dir, 'joined_data.csv'), index=False)
 
 def train_ml_model():
-    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    data_dir = os.path.join(base_dir, 'data')
+    data_dir = os.path.expanduser('~/data')
+    os.makedirs(data_dir, exist_ok=True)
     df = pd.read_csv(os.path.join(data_dir, 'joined_data.csv'))
     
     X = df[['temperature']]
